@@ -97,6 +97,7 @@ stage('Create jobs') {
                   git {
                     remote {
                       url("${url}")
+                      credentials('mnordsletten-github-user-pass-conan-build-testing')
                     }
                     scriptPath("${path}")
                     extensions {
