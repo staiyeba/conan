@@ -1,0 +1,24 @@
+pipeline {
+  agent { label 'conan_worker' }
+  parameters {
+    choice(name: 'Versions', choices: ['', 'v1', 'v2', 'v3'], description: 'Target version to build')
+    string(name: 'Architectures', defaultValue: 'release, debug', description: 'Which arch')
+    string(name: 'Build_types', defaultValue: 'x86_64, i686', description: 'Build types')
+  }
+  stages {
+    stage('Build') {
+      steps {
+        script {
+          // Only run if a version was selected
+          if ("${params.Versions}" == "") {
+            echo "No version was selected, exiting"
+          } else {
+            p = load 'functions.groovy'
+            p.build("${params.Versions}", "${params.Architectures}", "${params.Build_types}")
+            p.upload("http://internet.com")
+          }
+        }
+      }
+    }
+  }
+}
