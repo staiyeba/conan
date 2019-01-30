@@ -96,7 +96,7 @@ stage('Create jobs') {
                 scm {
                   git {
                     remote {
-                      url("${url}")
+                      url("${git_url}")
                       credentials('mnordsletten-github-user-pass-conan-build-testing')
                     }
                     scriptPath("${path}")
