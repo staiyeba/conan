@@ -99,6 +99,7 @@ stage('Create jobs') {
                       url("${git_url}")
                       credentials('mnordsletten-github-user-pass-conan-build-testing')
                     }
+                    branch('master')
                     scriptPath("${path}")
                     extensions {
                       cleanBeforeCheckout()
