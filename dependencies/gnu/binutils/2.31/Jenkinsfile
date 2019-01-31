@@ -1,0 +1,26 @@
+pipeline {
+  agent { label 'conan_worker' }
+  parameters {
+    choice(name: 'Version', choices: ['', '2.31'], description: 'Target version to build')
+    string(name: 'Profiles', defaultValue: 'clang-6.0-linux-i386-toolchain, clang-6.0-linux-x86_64-toolchain', description: 'Profiles to build with, multiple can be listed')
+    string(name: 'Target_os', defaultValue: 'Linux', description: 'Target operating system, multiple can be listed')
+    string(name: 'Target_architectures', defaultValue: 'x86_64, x86', description: 'Target architecture, multiple can be listed')
+    string(name: 'Build_types', defaultValue: 'Debug, Release', description: 'Type of build, multiple can be listed')
+  }
+  stages {
+    stage('Build') {
+      steps {
+        script {
+          // Only run if a version was selected
+          if ("${params.Version}" == "") {
+            echo "No version was selected, exiting"
+          } else {
+            p = load 'functions.groovy'
+            p.build_binutils("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}")
+            p.upload("http://internet.com")
+          }
+        }
+      }
+    }
+  }
+}
