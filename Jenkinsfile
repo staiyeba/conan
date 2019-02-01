@@ -4,6 +4,12 @@ def folderName = 'conan'
 // Name/label of the worker that should be used, this name is also set in the individual build jobs Jenkinsfile
 def worker_node = 'conan_worker'
 
+// Settings for conan
+def artifactory_name = "kristianj"
+def artifactory_repo = "includeos-develop"
+def conan_user = 'includeos'
+def conan_channel = 'tools'
+
 // Create a folder to keep all the jobs that are created in. Also create 3 views based on what type of build job it is.
 stage('Create folders') {
   node() {
@@ -92,6 +98,8 @@ stage('Create jobs') {
             description("Pipeline for ${name}")
             environmentVariables {
               env('SCRIPT_PATH', "${path}")
+              env('CONAN_USER', "${conan_user}")
+              env('CONAN_CHANNEL', "${conan_channel}")
             }
             definition {
               cpsScm {

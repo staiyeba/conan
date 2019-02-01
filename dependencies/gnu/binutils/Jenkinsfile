@@ -17,7 +17,7 @@ pipeline {
           } else {
             p = load 'functions.groovy'
             def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
-            def build_cmds = p.create_binutils_build_commands("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}", "${conanfile_path}")
+            def build_cmds = p.create_binutils_build_commands("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}")
 
             stash name: 'all'
 

@@ -30,7 +30,7 @@ def create_build_commands(version, profiles, target_oss, target_architectures, b
 }
 
 
-def create_binutils_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path) {
+def create_binutils_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path, conan_user, conan_channel) {
   // clean the input parameters
   profiles = "${profiles}".replaceAll("\\s", "").split(',')
   target_oss = "${target_oss}".replaceAll("\\s", "").split(',')
@@ -45,7 +45,7 @@ def create_binutils_build_commands(version, profiles, target_oss, target_archite
       for (t_arch in target_architectures) {
         for (b_type in build_types) {
           String buildName = "${prof}-${b_type}-${t_os}-${t_arch}"
-          String buildCmd = "conan create ${conanfile_path} -pr ${prof}"
+          String buildCmd = "conan create ${conanfile_path} -pr ${prof} ${conan_user}/${conan_channel}"
 
           if (b_type.length() > 0) {
             buildCmd += " -s build_type=${b_type}"
@@ -54,7 +54,7 @@ def create_binutils_build_commands(version, profiles, target_oss, target_archite
             buildCmd += " -s os=${t_os}"
           }
           builds[buildName] = """
-            echo "${buildCmd}"
+            ${buildCmd}
           """
         }
       }
