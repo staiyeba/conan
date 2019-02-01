@@ -16,8 +16,8 @@ pipeline {
             echo "No version was selected, exiting"
           } else {
             p = load 'functions.groovy'
-            def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Versions}")
-            def build_cmds = p.create_binutils_build_commands("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}")
+            def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
+            def build_cmds = p.create_binutils_build_commands("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}", "${conanfile_path}")
 
             stash name: 'all'
 
@@ -34,6 +34,7 @@ pipeline {
               }
             }
 
+            parallel builds
 
             //p.upload("http://internet.com")
           }
