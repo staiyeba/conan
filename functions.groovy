@@ -26,7 +26,7 @@ def build(versions, architectures, build_types) {
   parallel builds
 }
 
-def build_binutils(version, profiles, target_oss, target_architectures, build_types) {
+def create_binutils_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path) {
   // clean the input parameters
   profiles = "${profiles}".replaceAll("\\s", "").split(',')
   target_oss = "${target_oss}".replaceAll("\\s", "").split(',')
@@ -42,26 +42,26 @@ def build_binutils(version, profiles, target_oss, target_architectures, build_ty
         for (b_type in build_types) {
           String buildName = "${prof}-${b_type}-${t_os}-${t_arch}"
 
-          builds[buildName] = {
-            node('conan_worker') {
-              stage(buildName) {
-                sh """
-                  echo "creating ${buildName}"
-                  ls -l
-                  pwd
-                """
-              }
-            }
-          }
-
+          builds[buildName] = """
+            echo "buildName: ${buildName}"
+            echo "conanfile path: ${conanfile_path}"
+            cat "${conanfile_path}"
+          """
         }
       }
     }
   }
 
-  // Start in parallel
-  parallel builds
+  return builds
 }
+
+def conanfile_path(jenkinsfile_path, version) {
+  def regexSuffix = ~/\/Jenkinsfile$/
+  def path = "${jenkinsfile_path}" - regexSuffix
+  def conanfile = "${path}/${version}/conanfile.py"
+  return conanfile
+}
+
 
 def upload(target) {
    echo "Uploading to: ${target}"

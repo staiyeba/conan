@@ -1,21 +1,41 @@
 pipeline {
   agent { label 'conan_worker' }
   parameters {
-    choice(name: 'Versions', choices: ['', 'v1', 'v2', 'v3'], description: 'Target version to build')
-    string(name: 'Architectures', defaultValue: 'release, debug', description: 'Which arch')
-    string(name: 'Build_types', defaultValue: 'x86_64, i686', description: 'Build types')
+    choice(name: 'Version', choices: ['', '1.0', '2.0'], description: 'Target version to build')
+    string(name: 'Profiles', defaultValue: 'clang-6.0-linux-i386-toolchain, clang-6.0-linux-x86_64-toolchain', description: 'Profiles to build with, multiple can be listed')
+    string(name: 'Target_os', defaultValue: 'Linux', description: 'Target operating system, multiple can be listed')
+    string(name: 'Target_architectures', defaultValue: 'x86_64, x86', description: 'Target architecture, multiple can be listed')
+    string(name: 'Build_types', defaultValue: 'Debug, Release', description: 'Type of build, multiple can be listed')
   }
   stages {
     stage('Build') {
       steps {
         script {
           // Only run if a version was selected
-          if ("${params.Versions}" == "") {
+          if ("${params.Version}" == "") {
             echo "No version was selected, exiting"
           } else {
             p = load 'functions.groovy'
-            p.build("${params.Versions}", "${params.Architectures}", "${params.Build_types}")
-            p.upload("http://internet.com")
+            def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Versions}")
+            def build_cmds = p.create_binutils_build_commands("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}")
+
+            stash name: 'all'
+
+            def builds = [:]
+
+            build_cmds.each {
+              builds["${it.key}"] = {
+                node('conan_worker') {
+                  stage("${it.key}") {
+                    unstash 'all'
+                    sh "${it.value}"
+                  }
+                }
+              }
+            }
+
+
+            //p.upload("http://internet.com")
           }
         }
       }

@@ -16,8 +16,26 @@ pipeline {
             echo "No version was selected, exiting"
           } else {
             p = load 'functions.groovy'
-            p.build_binutils("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}")
-            p.upload("http://internet.com")
+            def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Versions}")
+            def build_cmds = p.create_binutils_build_commands("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}")
+
+            stash name: 'all'
+
+            def builds = [:]
+
+            build_cmds.each {
+              builds["${it.key}"] = {
+                node('conan_worker') {
+                  stage("${it.key}") {
+                    unstash 'all'
+                    sh "${it.value}"
+                  }
+                }
+              }
+            }
+
+
+            //p.upload("http://internet.com")
           }
         }
       }
