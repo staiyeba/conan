@@ -51,4 +51,4 @@ class BinutilsConan(ConanFile):
         arch=self._find_arch()
         self.copy("*",dst=arch+"-elf",src=arch+'elf')
         self.copy("*",dst="bin",src="bin")
-self.copy("*",dst="include",src="include")
+        self.copy("*",dst="include",src="include")
