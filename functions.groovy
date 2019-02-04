@@ -24,7 +24,7 @@ def create_binutils_build_commands(version, profiles, target_oss, target_archite
             buildCmd += " -s os=${t_os}"
           }
           if (t_arch.length() > 0) {
-            buildCmd += " -s target_arch=${t_arch}"
+            buildCmd += " -s arch=${t_arch}"
           }
           builds[buildName] = """
             ${buildCmd}
@@ -61,7 +61,7 @@ def create_tools_build_commands(version, profiles, target_oss, build_types, cona
             buildCmd += " -s os=${t_os}"
           }
           if (t_arch.length() > 0) {
-            buildCmd += " -s target_arch=${t_arch}"
+            buildCmd += " -s arch=${t_arch}"
           }
           builds[buildName] = """
             ${buildCmd}
@@ -97,7 +97,7 @@ def create_dependencies_build_commands(version, profiles, target_oss, build_type
             buildCmd += " -s os=${t_os}"
           }
           if (t_arch.length() > 0) {
-            buildCmd += " -s target_arch=${t_arch}"
+            buildCmd += " -s arch=${t_arch}"
           }
           builds[buildName] = """
             ${buildCmd}
