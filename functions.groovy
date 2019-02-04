@@ -12,7 +12,7 @@ def create_dependencies_build_commands(version, profiles, target_oss, build_type
   for (prof in profiles) {
     for (t_os in target_oss) {
         for (b_type in build_types) {
-          String buildName = "${prof}-${b_type}-${t_os}-${t_arch}"
+          String buildName = "${prof}-${b_type}-${t_os}"
           String buildCmd = "conan create ${conanfile_path} -pr ${prof} ${conan_user}/${conan_channel}"
 
           if (b_type.length() > 0) {
