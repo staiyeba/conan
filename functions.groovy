@@ -37,7 +37,7 @@ def create_binutils_build_commands(version, profiles, target_oss, target_archite
   return builds
 }
 
-def create_tools_build_commands(version, profiles, target_oss, build_types, conanfile_path, conan_user, conan_channel) {
+def create_tools_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path, conan_user, conan_channel) {
   // clean the input parameters
   profiles = "${profiles}".replaceAll("\\s", "").split(',')
   target_oss = "${target_oss}".replaceAll("\\s", "").split(',')
@@ -73,7 +73,7 @@ def create_tools_build_commands(version, profiles, target_oss, build_types, cona
   return builds
 }
 
-def create_dependencies_build_commands(version, profiles, target_oss, build_types, conanfile_path, conan_user, conan_channel) {
+def create_dependencies_build_commands(version, profiles, target_architectures, target_oss, build_types, conanfile_path, conan_user, conan_channel) {
   // clean the input parameters
   profiles = "${profiles}".replaceAll("\\s", "").split(',')
   target_oss = "${target_oss}".replaceAll("\\s", "").split(',')
