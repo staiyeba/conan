@@ -2,7 +2,7 @@ pipeline {
   agent { label 'conan_worker' }
   parameters {
     choice(name: 'Version', choices: ['', '1.1.18', '1.1.19', '1.1.20'], description: 'Target version to build')
-    string(name: 'Profiles', defaultValue: 'clang-6.0-linux-i386-toolchain, clang-6.0-linux-x86_64-toolchain, gcc-7.3.0-linux-i386-toolchain, gcc-8.2.0-linux-i386-toolchain, gcc-8.2.0-linux-x86_64-toolchain', description: 'Profiles to build with, multiple can be listed')
+    string(name: 'Profiles', defaultValue: 'clang-6.0-linux-i386, clang-6.0-linux-x86_64, gcc-7.3.0-linux-i386, gcc-8.2.0-linux-i386, gcc-8.2.0-linux-x86_64', description: 'Profiles to build with, multiple can be listed')
     string(name: 'Target_os', defaultValue: 'Linux', description: 'Target operating system, multiple can be listed')
     string(name: 'Target_architectures', defaultValue: 'x86_64, x86', description: 'Target architecture, multiple can be listed')
     string(name: 'Build_types', defaultValue: 'Debug, Release', description: 'Type of build, multiple can be listed')
@@ -15,6 +15,8 @@ pipeline {
           if ("${params.Version}" == "") {
             echo "No version was selected, exiting"
           } else {
+            currentBuild.description = "v:${params.Version}, prof:${params.Profiles}, os:${params.Target_os}, arch:${params.Target_architectures}, b_types:${params.Build_types}"
+            
             p = load 'functions.groovy'
             def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
 
