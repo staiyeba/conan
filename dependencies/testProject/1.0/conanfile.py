@@ -1,1 +1,1 @@
-conanfile for 1.0
+echo conanfile for 1.0

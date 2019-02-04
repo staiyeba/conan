@@ -15,11 +15,13 @@ pipeline {
           if ("${params.Version}" == "") {
             echo "No version was selected, exiting"
           } else {
+            currentBuild.displayName = "${params.Version}-${params.Profiles}"
             currentBuild.description = "v:${params.Version}, prof:${params.Profiles}, os:${params.Target_os}, arch:${params.Target_architectures}, b_types:${params.Build_types}"
 
             p = load 'functions.groovy'
             def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
-            def build_cmds = p.create_binutils_build_commands("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}", "${conanfile_path}")
+            def build_cmds = p.create_binutils_build_commands("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}")
+
 
             stash name: 'all'
 
