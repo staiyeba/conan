@@ -99,4 +99,4 @@ class MuslConan(ConanFile):
     def deploy(self):
         self.copy("*.h",dst="include",src="include")
         self.copy("*.a",dst="lib",src="lib")
-self.copy("*.o",dst="lib",src="lib")
+        self.copy("*.o",dst="lib",src="lib")
