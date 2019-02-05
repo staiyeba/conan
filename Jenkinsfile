@@ -9,6 +9,7 @@ def artifactory_name = "kristianj"
 def artifactory_repo = "includeos-develop"
 def conan_user = 'includeos'
 def conan_channel = 'test'
+def conan_home = '/home/ubuntu/networked-conan-cache'
 
 // Create a folder to keep all the jobs that are created in. Also create 3 views based on what type of build job it is.
 stage('Create folders') {
@@ -114,6 +115,7 @@ stage('Create jobs') {
               env('SCRIPT_PATH', "${path}")
               env('CONAN_USER', "${conan_user}")
               env('CONAN_CHANNEL', "${conan_channel}")
+              env('CONAN_USER_HOME', "${conan_home}")
             }
             definition {
               cpsScm {
