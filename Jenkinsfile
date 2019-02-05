@@ -8,7 +8,7 @@ def worker_node = 'conan_worker'
 def artifactory_name = "kristianj"
 def artifactory_repo = "includeos-develop"
 def conan_user = 'includeos'
-def conan_channel = 'tools'
+def conan_channel = 'test'
 
 // Create a folder to keep all the jobs that are created in. Also create 3 views based on what type of build job it is.
 stage('Create folders') {
