@@ -14,10 +14,10 @@ class MuslConan(ConanFile):
     url = "https://www.musl-libc.org/"
 
     exports_sources=[
-        '../files*musl.patch',
-        '../files*musl*endian.patch',
-        '../files*api_syscalls.h',
-        '../files*syscall.h'
+        'files*musl.patch',
+        'files*musl*endian.patch',
+        'files*api_syscalls.h',
+        'files*syscall.h'
     ]
 
     def imports(self):
@@ -31,10 +31,10 @@ class MuslConan(ConanFile):
         git.clone("git://git.musl-libc.org/musl/",branch=self.version)
 
         # Replace syscall API's
-        tools.patch(base_path="musl",patch_file="../files/musl.patch")
-        tools.patch(base_path="musl",patch_file="../files/endian.patch")
-#        shutil.copy("api/syscalls.h","musl/src/internal/includeos_syscalls.h")
-#        shutil.copy("etc/musl/syscall.h","musl/src/internal")
+        tools.patch(base_path="musl",patch_file="files/musl.patch")
+        tools.patch(base_path="musl",patch_file="files/endian.patch")
+        shutil.copy("files/api_syscalls.h","musl/src/internal/includeos_syscalls.h")
+        shutil.copy("files/syscall.h","musl/src/internal")
         os.unlink("musl/arch/x86_64/syscall_arch.h")
         os.unlink("musl/arch/i386/syscall_arch.h")
 
