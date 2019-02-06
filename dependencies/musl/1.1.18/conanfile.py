@@ -14,10 +14,10 @@ class MuslConan(ConanFile):
     url = "https://www.musl-libc.org/"
 
     exports_sources=[
-        '../files*musl.patch',
-        '../files*musl*endian.patch',
-        '../files*api_syscalls.h',
-        '../files*syscall.h'
+        '../../files*musl.patch',
+        '../../files*musl*endian.patch',
+        '../../files*api_syscalls.h',
+        '../../files*syscall.h'
     ]
 
     def imports(self):
