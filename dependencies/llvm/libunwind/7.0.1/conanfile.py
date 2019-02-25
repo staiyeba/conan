@@ -1,5 +1,6 @@
 import shutil #move
 import os #unlink
+import sys
 from conans import ConanFile,tools,CMake
 
 class LibUnwindConan(ConanFile):
@@ -26,7 +27,7 @@ class LibUnwindConan(ConanFile):
     def llvm_checkout(self,project):
         filename="{}-{}.src.tar.xz".format(project,self.version)
         tools.download("http://releases.llvm.org/{}/{}".format(self.version,filename),filename)
-        if (PYTHON_VERSION < 3)
+        if sys.version_info[0] < 3:
             self.run("tar -xf {}".format(filename))
         else
             tools.unzip(filename)
