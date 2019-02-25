@@ -1,5 +1,16 @@
 #!/usr/bin/env groovy
 
+def upload_package_command(version, conanfile_path, conan_user, conan_channel) {
+  def builds = [:]
+  String buildCmd = "conan upload ${conanfile_path}@${conan_user}/${conan_channel} -r ${conan_user}/${conan_channel}"
+
+  builds[buildName] = """
+    ${buildCmd}
+  """
+
+  return builds
+}
+
 def create_binutils_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path, conan_user, conan_channel) {
   // clean the input parameters
   profiles = "${profiles}".replaceAll("\\s", "").split(',')
@@ -88,7 +99,7 @@ def create_dependencies_build_commands(version, profiles, target_oss, target_arc
       for (t_arch in target_architectures) {
         for (b_type in build_types) {
           String buildName = "${prof}-${b_type}-${t_os}"
-          String buildCmd = "conan create ${conanfile_path} -pr ${prof} -r includeos/test ${conan_user}/${conan_channel}"
+          String buildCmd = "conan create ${conanfile_path} -pr ${prof} ${conan_user}/${conan_channel}"
 
           if (b_type.length() > 0) {
             buildCmd += " -s build_type=${b_type}"
