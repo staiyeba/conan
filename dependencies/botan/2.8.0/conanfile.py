@@ -3,6 +3,7 @@ from conans import ConanFile,tools
 class BotanConan(ConanFile):
     settings= "os","arch","build_type","compiler"
     name = "botan"
+    version = "2.8.0"
     license = 'BSD 2-Clause'
     description = 'Botan: Crypto and TLS for Modern C++'
     url = "https://github.com/Tencent/rapidjson/"
