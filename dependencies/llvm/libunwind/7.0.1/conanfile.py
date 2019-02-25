@@ -27,9 +27,9 @@ class LibUnwindConan(ConanFile):
     def llvm_checkout(self,project):
         filename="{}-{}.src.tar.xz".format(project,self.version)
         tools.download("http://releases.llvm.org/{}/{}".format(self.version,filename),filename)
-        if (sys.version_info[0] < 3):
+        if sys.version_info[0] < 3:
             self.run("tar -xf {}".format(filename))
-        else
+        else:
             tools.unzip(filename)
         os.unlink(filename)
         shutil.move("{}-{}.src".format(project,self.version),project)
