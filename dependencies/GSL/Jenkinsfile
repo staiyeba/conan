@@ -55,23 +55,7 @@ pipeline {
             p = load 'functions.groovy'
             def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
 
-            def build_cmds = p.upload_package_command("${params.Version}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}")
-
-            stash name: 'all'
-
-            def builds = [:]
-
-            build_cmds.each {
-                builds["${it.key}"] = {
-                  node('conan_worker') {
-                    stage("${it.key}") {
-                      unstash 'all'
-                      sh "${it.value}"
-                    }
-                  }
-                }
-            }
-            parallel builds
+            p.upload_package_command("${params.Version}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}")
           }
         }
     }
