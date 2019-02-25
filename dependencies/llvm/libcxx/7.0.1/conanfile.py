@@ -6,6 +6,7 @@ from conans import ConanFile,tools,CMake
 class LibCxxConan(ConanFile):
     settings= "compiler","arch","build_type","os"
     name = "libcxx"
+    version = "7.0.1"
     generators="cmake"
     license = 'NCSA','MIT'
     description = 'The LLVM Compiler Infrastructure C++ library'
