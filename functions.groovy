@@ -1,10 +1,10 @@
 #!/usr/bin/env groovy
 
 def upload_package_command(version, conanfile_path, conan_user, conan_channel) {
-  def builds = [:]
+  def builds
   String buildCmd = "conan upload ${conanfile_path}@${conan_user}/${conan_channel} -r ${conan_user}/${conan_channel}"
 
-  builds[buildName] = """
+  builds = """
     ${buildCmd}
   """
 
