@@ -43,13 +43,13 @@ pipeline {
 
             parallel builds
 
-            //p.upload("http://internet.com")
+            p.upload_package_command("${params.Version}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}")
           }
         }
       }
     }
 
-    stage('Upload') {
+/*    stage('Upload') {
         steps {
           script {
             p = load 'functions.groovy'
@@ -74,6 +74,6 @@ pipeline {
             parallel builds
           }
         }
-    }
+    } */
   }
 }
