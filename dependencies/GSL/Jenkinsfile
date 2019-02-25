@@ -1,4 +1,4 @@
-// dependencies/musl/Jenkinsfile
+// dependencies/GSL/Jenkinsfile
 
 pipeline {
   agent { label 'conan_worker' }
@@ -52,13 +52,15 @@ pipeline {
     stage('Upload') {
         steps {
           script {
-              def build_cmds = p.upload_package_command("${params.Version}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}")
+            def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
 
-              stash name: 'all'
+            def build_cmds = p.upload_package_command("${params.Version}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}")
 
-              def builds = [:]
+            stash name: 'all'
 
-              build_cmds.each {
+            def builds = [:]
+
+            build_cmds.each {
                 builds["${it.key}"] = {
                   node('conan_worker') {
                     stage("${it.key}") {
@@ -67,8 +69,8 @@ pipeline {
                     }
                   }
                 }
-              }
-              parallel builds
+            }
+            parallel builds
           }
         }
     }
