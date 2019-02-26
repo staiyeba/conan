@@ -15,7 +15,7 @@ class MuslConan(ConanFile):
 
     exports_sources=[
         'files*musl.patch',
-        'files*musl*endian.patch',
+        'files*endian.patch',
         'files*api_syscalls.h',
         'files*syscall.h'
     ]
