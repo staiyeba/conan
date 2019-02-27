@@ -3,7 +3,7 @@ from conans import ConanFile,tools
 
 class NaClConan(ConanFile):
     name = 'nacl'
-    version="0.2.0"
+    version="v0.2.0"
     license = 'Apache-2.0'
     description='NaCl is a configuration language for IncludeOS that you can use to add for example interfaces and firewall rules to your service.'
     url='https://github.com/includeos/NaCl'
