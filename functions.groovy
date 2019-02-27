@@ -7,7 +7,6 @@ def upload_package_command(version, conanfile_path, conan_user, conan_channel) {
   builds = """
     ${buildCmd}
   """
-
   return builds
 }
 
@@ -44,7 +43,6 @@ def create_binutils_build_commands(version, profiles, target_oss, target_archite
       }
     }
   }
-
   return builds
 }
 
@@ -54,16 +52,15 @@ def create_tools_build_commands(version, profiles, target_oss, target_architectu
   target_oss = "${target_oss}".replaceAll("\\s", "").split(',')
   target_architectures = "${target_architectures}".replaceAll("\\s", "").split(',')
   build_types = "${build_types}".replaceAll("\\s", "").split(',')
-
+  pkg_name =  conanfile_path - 'tools/'
   // Loop to create all build tasks
   def builds = [:]
-
   for (prof in profiles) {
     for (t_os in target_oss) {
       for (t_arch in target_architectures) {
         for (b_type in build_types) {
           String buildName = "${prof}-${b_type}-${t_os}"
-          String buildCmd = "conan create ${conanfile_path} -pr ${prof} ${conanfile_path}@${conan_user}/${conan_channel}"
+          String buildCmd = "conan create ${conanfile_path} -pr ${prof} ${pkg_name}@${conan_user}/${conan_channel}"
 
           if (b_type.length() > 0) {
             buildCmd += " -s build_type=${b_type}"
