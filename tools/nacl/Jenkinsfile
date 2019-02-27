@@ -1,4 +1,4 @@
-// tools/chainloader/Jenkinsfile
+// tools/nacl/Jenkinsfile
 
 pipeline {
   agent { label 'conan_worker' }
@@ -27,7 +27,7 @@ pipeline {
             stash name: 'all'
 
             def builds = [:]
-
+            build_cmds =  build_cmds - 'tools/'
             build_cmds.each {
               builds["${it.key}"] = {
                 node('conan_worker') {
