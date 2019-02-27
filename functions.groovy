@@ -87,7 +87,7 @@ def create_libraries_build_commands(version, profiles, target_oss, target_archit
   target_oss = "${target_oss}".replaceAll("\\s", "").split(',')
   target_architectures = "${target_architectures}".replaceAll("\\s", "").split(',')
   build_types = "${build_types}".replaceAll("\\s", "").split(',')
-  pkg_name =  conanfile_path - 'tools/'
+  pkg_name =  conanfile_path - 'libraries/'
   // Loop to create all build tasks
   def builds = [:]
   for (prof in profiles) {
