@@ -1,6 +1,6 @@
 [build_requires]
 [settings]
-os=IncludeOS
+os=Linux
 os_build=Linux
 arch=x86
 arch_build=x86_64
