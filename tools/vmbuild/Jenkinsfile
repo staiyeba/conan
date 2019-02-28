@@ -39,11 +39,28 @@ pipeline {
             }
 
             parallel builds
-
-            //p.upload("http://internet.com")
           }
         }
       }
+    }
+
+    // If all packages have built correct, upload them to target in parallel
+    stage('Upload') {
+        steps {
+          script {
+            p = load 'functions.groovy'
+            def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
+
+            def upload_command = p.upload_package_command("${params.Version}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}")
+
+            upload_command =  upload_command - 'tools/'
+
+            println upload_command
+
+            sh "${upload_command}"
+
+          }
+        }
     }
   }
 }

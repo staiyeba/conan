@@ -60,7 +60,9 @@ pipeline {
 
             upload_command =  upload_command - 'dependencies/'
 
-            upload_command
+            println upload_command
+
+            sh "${upload_command}"
 
           }
         }
