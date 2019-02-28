@@ -62,7 +62,7 @@ pipeline {
 
             println upload_command
 
-            upload_command.execute()
+            sh "${upload_command}"
 
           }
         }
