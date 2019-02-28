@@ -48,8 +48,11 @@ pipeline {
 
     // If all packages have built correct, upload them to target in parallel
     stage('Upload') {
-        steps {
-          script {
+      steps {
+        script {
+          if ("${params.Version}" == "") {
+            echo "No version was selected, exiting"
+          } else {
             p = load 'functions.groovy'
             def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
 
@@ -60,9 +63,9 @@ pipeline {
             println upload_command
 
             sh "${upload_command}"
-
           }
         }
+      }
     }
   }
 }
