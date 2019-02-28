@@ -2,7 +2,7 @@
 
 def upload_package_command(version, conanfile_path, conan_user, conan_channel) {
   def builds
-  String buildCmd = "conan upload ${conanfile_path}@${conan_user}/${conan_channel} -r ${conan_user}/${conan_channel}"
+  String buildCmd = "conan upload ${conanfile_path}/${version}@${conan_user}/${conan_channel} -r ${conan_user}/${conan_channel}"
 
   builds = """
     ${buildCmd}
