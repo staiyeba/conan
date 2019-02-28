@@ -8,7 +8,7 @@ class MuslConan(ConanFile):
     #compiler .. target .. and build type
     settings= "compiler","arch","build_type","arch_build"
     name = "musl"
-    version = "1.1.18"
+    version = "v1.1.18"
     license = 'MIT'
     description = 'musl - an implementation of the standard library for Linux-based systems'
     url = "https://www.musl-libc.org/"
