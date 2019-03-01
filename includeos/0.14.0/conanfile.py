@@ -48,7 +48,7 @@ class IncludeOSConan(ConanFile):
 
     def source(self):
         repo = tools.Git(folder="includeos")
-        repo.clone("https://github.com/hioa-cs/IncludeOS.git",branch="conan")
+        repo.clone("https://github.com/hioa-cs/IncludeOS.git",branch="dev")
 
     def _target_arch(self):
         return {
