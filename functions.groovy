@@ -23,7 +23,7 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
   target_oss = "${target_oss}".replaceAll("\\s", "").split(',')
   target_architectures = "${target_architectures}".replaceAll("\\s", "").split(',')
   build_types = "${build_types}".replaceAll("\\s", "").split(',')
-
+  file_path = "${conanfile_path}"
   // NEED TO PASS the package name to this parameter pkg_name
   // pkg_name =  conanfile_path - 'tools/'
   regexTools = ~/\btools\w*\b\//
@@ -32,9 +32,9 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
   // gets first directory (will not work if package folder is inside tree)
   otherName = ~/\b\w*\b\//
 
-  if ("${conanfile_path}".contains(regexTools)) {
+  if (file_path.contains(regexTools)) {
     pkg_name = "${conanfile_path}" - regexTools
-  } else if ("${conanfile_path}".contains(regexIOS)) {
+  } else if (file_path.contains(regexIOS)) {
     pkg_name = "${conanfile_path}" - regexIOS
   } else {
     pkg_name = "${conanfile_path}" - otherName
