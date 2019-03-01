@@ -16,8 +16,8 @@ class VmbuildConan(ConanFile):
         self.build_requires("GSL/2.0.0@includeos/test")
 
     def source(self):
-        repo = tools.Git(folder="includeos")
-        repo.clone("https://github.com/hioa-cs/IncludeOS.git",branch="dev")
+    #    repo = tools.Git(folder="includeos")
+    #    repo.clone("https://github.com/hioa-cs/IncludeOS.git",branch="dev")
         shutil.copy("files/elf.h", "includeos/vmbuild")
 
     def _configure_cmake(self):
