@@ -57,7 +57,7 @@ pipeline {
 
             def upload_command = p.upload_package_command("${params.Version}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}")
 
-            upload_command =  upload_command - 'libraries/'
+            upload_command =  upload_command - 'dependencies/'
 
             println upload_command
 
