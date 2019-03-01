@@ -33,7 +33,7 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
 
   // NEED TO PASS the package name to this parameter pkg_name
   // pkg_name =  conanfile_path - 'tools/'
-  pkg_name = package_name
+  pkg_name = "${package_name}"
 
   // Loop to create all build tasks
   def builds = [:]
