@@ -39,7 +39,7 @@ class ChainloaderConan(ConanFile):
     def source(self):
         #shutil.copytree("/home/kristian/git/IncludeOS","includeos")
         repo = tools.Git(folder="includeos")
-        repo.clone("https://github.com/hioa-cs/IncludeOS.git",branch="conan")
+        repo.clone("https://github.com/hioa-cs/IncludeOS.git",branch="dev")
 
     def _configure_cmake(self):
         cmake = CMake(self)
