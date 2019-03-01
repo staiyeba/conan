@@ -5,8 +5,8 @@ pipeline {
   parameters {
     choice(name: 'Version', choices: ['', 'dev','0.13.0', '0.14.0'], description: 'Target version to build')
     string(name: 'Profiles', defaultValue: 'gcc-7.3.0-linux-x86_64, clang-6.0-linux-x86_64', description: 'Profiles to build with, multiple can be listed')
-    string(name: 'Target_os', defaultValue: 'Linux, Macos', description: 'Target operating system, multiple can be listed')
-    string(name: 'Target_architectures', defaultValue: 'x86, x86_64', description: 'Target architecture, multiple can be listed')
+    string(name: 'Target_os', defaultValue: '', description: 'Target operating system, multiple can be listed')
+    string(name: 'Target_architectures', defaultValue: '', description: 'Target architecture, multiple can be listed')
     string(name: 'Build_types', defaultValue: 'Debug, Release', description: 'Type of build, multiple can be listed')
   }
   stages {
