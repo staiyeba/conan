@@ -59,7 +59,7 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
             buildCmd += " -s arch=${t_arch}"
           }
           if (prof.contains('clang-6.0-linux-x86')) {
-            buildCmd += " -o BASIC=ON"
+            buildCmd += " -o basic=on"
           }
           builds[buildName] = """
             ${buildCmd}
