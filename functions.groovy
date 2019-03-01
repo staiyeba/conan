@@ -1,12 +1,8 @@
 #!/usr/bin/env groovy
 
 def upload_package_command(version, conanfile_path, conan_user, conan_channel) {
-  def builds
   String buildCmd = "conan upload ${conanfile_path}@${conan_user}/${conan_channel} -r ${conan_user}/${conan_channel}"
-
-  builds = """
-    ${buildCmd}
-  """
+  builds = "${buildCmd}"
   return builds
 }
 
@@ -39,6 +35,7 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
   } else {
     pkg_name = "${conanfile_path}" - otherName
   }
+  println pkg_name
 
   // Loop to create all build tasks
   def builds = [:]
