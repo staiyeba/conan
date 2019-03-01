@@ -25,14 +25,14 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
   build_types = "${build_types}".replaceAll("\\s", "").split(',')
 
   // NEED TO PASS the package name to this parameter pkg_name
-  pkg_name =  conanfile_path - 'tools/'
+  // pkg_name =  conanfile_path - 'tools/'
   regexTools = ~/\btools\w*\b\//
-  println "----TESTING ----"
+  // println "----TESTING ----"
+  // println pkg_name
+  // println regexTools
+  pkg_name = "${conanfile_path}" - regexTools
   println pkg_name
-  println regexTools
-  test_pkg_name = "${conanfile_path}" - regexTools
-  println test_pkg_name
-  println "---- TESTING ----"
+  // println "---- TESTING ----"
 
 
   // Loop to create all build tasks
