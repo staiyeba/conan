@@ -10,7 +10,7 @@ class VmbuildConan(ConanFile):
     description = 'Run your application with zero overhead'
     generators = 'cmake'
     url = "http://www.includeos.org/"
-    exports_sources = "elf.h"
+    exports_sources = "files/elf.h"
 
     def build_requirements(self):
         self.build_requires("GSL/2.0.0@includeos/test")
