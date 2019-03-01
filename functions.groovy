@@ -27,13 +27,18 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
   // NEED TO PASS the package name to this parameter pkg_name
   // pkg_name =  conanfile_path - 'tools/'
   regexTools = ~/\btools\w*\b\//
-  // println "----TESTING ----"
-  // println pkg_name
-  // println regexTools
-  pkg_name = "${conanfile_path}" - regexTools
-  println pkg_name
-  // println "---- TESTING ----"
+  regexIOS = ~/\bincludeos\w*\b\//
 
+  // gets first directory (will not work if package folder is inside tree)
+  otherName = ~/\b\w*\b\//
+
+  if (regexTools) {
+    pkg_name = "${conanfile_path}" - regexTools
+  } else if (regexIOS){
+    pkg_name = "${conanfile_path}" - regexIOS
+  } else {
+    pkg_name = "${conanfile_path}" - otherName
+  }
 
   // Loop to create all build tasks
   def builds = [:]
