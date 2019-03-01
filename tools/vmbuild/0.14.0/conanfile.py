@@ -10,7 +10,7 @@ class VmbuildConan(ConanFile):
     description = 'Run your application with zero overhead'
     generators = 'cmake'
     url = "http://www.includeos.org/"
-    exports_sources = "files/elf.h"
+    exports_sources = "files*elf.h"
 
     def build_requirements(self):
         self.build_requires("GSL/2.0.0@includeos/test")
@@ -18,7 +18,7 @@ class VmbuildConan(ConanFile):
     def source(self):
         repo = tools.Git(folder="includeos")
         repo.clone("https://github.com/hioa-cs/IncludeOS.git",branch="dev")
-        shutil.copy("elf.h", "includeos/vmbuild")
+        shutil.copy("files/elf.h", "includeos/vmbuild")
 
     def _configure_cmake(self):
         cmake = CMake(self)
