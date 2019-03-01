@@ -17,6 +17,7 @@ pipeline {
           if ("${params.Version}" == "") {
             echo "No version was selected, exiting"
           } else {
+            currentBuild.displayName = "${params.Version}-${params.Profiles}"
             currentBuild.description = "v:${params.Version}, prof:${params.Profiles}, os:${params.Target_os}, arch:${params.Target_architectures}, b_types:${params.Build_types}"
 
             p = load 'functions.groovy'
