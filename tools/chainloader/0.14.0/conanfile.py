@@ -46,7 +46,7 @@ class ChainloaderConan(ConanFile):
         #glad True and False also goes but not recursily
         #hmm do i need this in env..
         cmake.definitions['INCLUDEOS_PREFIX']=self.build_folder
-        cmake.configure(source_folder=self.source_folder+"../files")
+        cmake.configure(source_folder=self.source_folder+"/files")
         return cmake;
 
     def build(self):
