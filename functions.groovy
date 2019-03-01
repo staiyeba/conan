@@ -32,9 +32,9 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
   // gets first directory (will not work if package folder is inside tree)
   otherName = ~/\b\w*\b\//
 
-  if (file_path.contains(regexTools)) {
+  if (file_path.contains('tools')) {
     pkg_name = "${conanfile_path}" - regexTools
-  } else if (file_path.contains(regexIOS)) {
+  } else if (file_path.contains('includeos')) {
     pkg_name = "${conanfile_path}" - regexIOS
   } else {
     pkg_name = "${conanfile_path}" - otherName
