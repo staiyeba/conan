@@ -17,13 +17,6 @@ def conanfile_path(jenkinsfile_path, version) {
   return conanfile
 }
 
-def package_name(conanfile_path) {
-  def regexTools = /\btools\w*\b/
-  def pkg_name = "${conanfile_path}" - regexTools
-  return pkg_name
-
-}
-
 def create_external_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path, conan_user, conan_channel) {
   // clean the input parameters
   profiles = "${profiles}".replaceAll("\\s", "").split(',')
@@ -33,7 +26,8 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
 
   // NEED TO PASS the package name to this parameter pkg_name
   // pkg_name =  conanfile_path - 'tools/'
-  pkg_name = "${package_name}"
+  regexTools = /\btools\w*\b/
+  pkg_name = "${conanfile_path}" - regexTools
 
   // Loop to create all build tasks
   def builds = [:]
