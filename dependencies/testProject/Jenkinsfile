@@ -1,5 +1,5 @@
 pipeline {
-  agent { label 'conan_worker' }
+  agent { label 'buildpkg-ubuntu1804' }
   parameters {
     choice(name: 'Version', choices: ['', '1.0', '2.0'], description: 'Target version to build')
     string(name: 'Profiles', defaultValue: 'clang-6.0-linux-i386-toolchain, clang-6.0-linux-x86_64-toolchain', description: 'Profiles to build with, multiple can be listed')
@@ -29,7 +29,7 @@ pipeline {
 
             build_cmds.each {
               builds["${it.key}"] = {
-                node('conan_worker') {
+                node('buildpkg-ubuntu1804') {
                   stage("${it.key}") {
                     unstash 'all'
                     sh "${it.value}"

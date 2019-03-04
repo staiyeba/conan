@@ -2,7 +2,7 @@
 def folderName = 'conan'
 
 // Name/label of the worker that should be used, this name is also set in the individual build jobs Jenkinsfile
-def worker_node = 'conan_worker'
+def worker_node = 'buildpkg-ubuntu1804'
 
 // Settings for conan
 def artifactory_name = "kristianj"
