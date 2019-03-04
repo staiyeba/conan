@@ -74,7 +74,8 @@ def create_dependencies_build_commands(version, profiles, target_oss, target_arc
   target_oss = "${target_oss}".replaceAll("\\s", "").split(',')
   target_architectures = "${target_architectures}".replaceAll("\\s", "").split(',')
   build_types = "${build_types}".replaceAll("\\s", "").split(',')
-
+  file_path = "${conanfile_path}"
+  
   // Loop to create all build tasks
   def builds = [:]
 
