@@ -101,6 +101,9 @@ def create_dependencies_build_commands(version, profiles, target_oss, target_arc
           if (file_path.contains('binutils')) {
             buildCmd += "toolchain"
           }
+          else if (conan_specify_channel.length() > 0) {
+            buildCmd += "${conan_specify_channel}"
+          }
           else {
             buildCmd += "${conan_channel}"
           }
