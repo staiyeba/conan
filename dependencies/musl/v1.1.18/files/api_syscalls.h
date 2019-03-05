@@ -2,6 +2,10 @@
 
 #define __includeos(num, ...) extern long syscall_##num(long,...)
 
+#if !defined(SYS_fork)
+  #define SYS_fork
+#endif
+
 extern long syscall_n(long,...);
 extern long syscall_SYS_brk(void*);
 extern long syscall_SYS_close(long,...);
