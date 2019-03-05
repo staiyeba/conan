@@ -7,7 +7,7 @@ def upload_package_command(version, conanfile_path, conan_user, conan_channel, c
   if (conan_specify_channel.length() > 0) {
     buildCmd += "${conan_specify_channel}"
   }
-  else
+  else {
     buildCmd += "${conan_channel}"
   }
 
