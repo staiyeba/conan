@@ -9,7 +9,8 @@ from conans import ConanFile,CMake,tools
 class S2nConan(ConanFile):
     settings="os","compiler","build_type","arch"
     name = "s2n"
-    version = "1.1.1" ##if we remove this line we can specify it from outside this script!! ps ps
+    default_user = "includeos" 
+	version = "1.1.1" ##if we remove this line we can specify it from outside this script!! ps ps
     options = {
         "threads":[True, False]
     }
@@ -19,6 +20,11 @@ class S2nConan(ConanFile):
     license = 'Apache 2.0'
     description = 's2n : an implementation of the TLS/SSL protocols'
     url = "https://www.openssl.org"
+
+    @property
+    def default_channel(self):
+        return "test"
+        
     def configure(self):
         #TODO fix the FORTIFY_SOURCE ISSUE IN RELEASE
         del self.settings.build_type

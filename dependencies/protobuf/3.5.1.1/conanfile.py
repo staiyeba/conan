@@ -9,13 +9,17 @@ from conans import ConanFile,CMake,tools
 class ProtobufConan(ConanFile):
     settings="os","compiler","build_type","arch"
     name = "protobuf"
-    version = "3.5.1.1"
+    default_user = "includeos"
+	version = "3.5.1.1"
     options = {"threads":[True, False]}
     default_options = {"threads": True}
-
     license = 'Apache 2.0'
     description = 'A language-neutral, platform-neutral extensible mechanism for serializing structured data.'
     url = "https://developers.google.com/protocol-buffers/"
+
+    @property
+    def default_channel(self):
+        return "test"
 
     def requirements(self):
         self.requires("libcxx/[>=5.0]@{}/{}".format(self.user,self.channel))## do we need this or just headers

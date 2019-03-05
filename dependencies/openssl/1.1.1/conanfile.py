@@ -9,7 +9,8 @@ from conans import ConanFile,CMake,tools
 class OpenSSLConan(ConanFile):
     settings="os","compiler","build_type","arch"
     name = "openssl"
-    version = "1.1.1" ##if we remove this line we can specify it from outside this script!! ps ps
+    default_user = "includeos" 
+	version = "1.1.1" ##if we remove this line we can specify it from outside this script!! ps ps
 
     options = {
         "threads":[True, False],
@@ -28,6 +29,10 @@ class OpenSSLConan(ConanFile):
     license = 'Apache 2.0'
     description = 'A language-neutral, platform-neutral extensible mechanism for serializing structured data.'
     url = "https://www.openssl.org"
+
+    @property
+    def default_channel(self):
+        return "test"
 
     def requirements(self):
         self.requires("libcxx/[>=5.0]@{}/{}".format(self.user,self.channel))

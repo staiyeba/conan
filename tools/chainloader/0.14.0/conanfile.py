@@ -6,11 +6,16 @@ from conans import ConanFile,tools,CMake
 class ChainloaderConan(ConanFile):
     settings= "os","arch","build_type","compiler"
     name = "chainloader"
+    default_user = "includeos"
     license = 'Apache-2.0'
     description = 'IncludeOS 32->64 bit chainloader for x86'
     generators = 'cmake'
     url = "http://www.includeos.org/"
 
+    @property
+    def default_channel(self):
+        return "test"
+            
     default_options={
         "includeos:solo5":"OFF",
         "includeos:apple":'',
@@ -29,7 +34,7 @@ class ChainloaderConan(ConanFile):
     #def requirements(self):
     def build_requirements(self):
         self.build_requires("includeos/{}@{}/{}".format(self.version,self.user,self.channel))
-        self.build_requires("libgcc/1.0@includeos/test")
+        self.build_requires("libgcc/1.0@{}/{}".format(self.user,self.channel))
         self.build_requires("vmbuild/{}@{}/{}".format(self.version,self.user,self.channel))
         #self.requires/"botan"
         #self.requires("vmbuild/0.13.0")

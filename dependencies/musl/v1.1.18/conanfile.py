@@ -8,10 +8,16 @@ class MuslConan(ConanFile):
     #compiler .. target .. and build type
     settings= "compiler","arch","build_type","arch_build"
     name = "musl"
-    version = "v1.1.18"
+    default_user = "includeos"
+    default_user = "includeos" 
+	version = "v1.1.18"
     license = 'MIT'
     description = 'musl - an implementation of the standard library for Linux-based systems'
     url = "https://www.musl-libc.org/"
+
+    @property
+    def default_channel(self):
+        return "test"
 
     exports_sources=[
         'files*musl.patch',

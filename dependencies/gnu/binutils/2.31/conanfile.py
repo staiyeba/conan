@@ -6,10 +6,11 @@ class BinutilsConan(ConanFile):
     #pre conan 2.0 we have to use arch_build as host arch and arch as target arch
     settings= "arch_build","os_build","arch"
     name = "binutils"
-    version = "2.31"
+    default_user = "includeos"
     url = "https://www.gnu.org/software/binutils/"
     description = "The GNU Binutils are a collection of binary tools."
     license = "GNU GPL"
+
     def source(self):
         zip_name="binutils-{}.tar.gz".format(self.version)
         tools.download("https://ftp.gnu.org/gnu/binutils/%s" % zip_name,zip_name)

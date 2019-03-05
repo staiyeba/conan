@@ -5,15 +5,20 @@ import shutil
 class VmbuildConan(ConanFile):
     settings= "os","arch"
     name = "vmbuild"
-    version = "0.14.0"
+    default_user = "includeos"
+	version = "0.14.0"
     license = 'Apache-2.0'
     description = 'Run your application with zero overhead'
     generators = 'cmake'
     url = "http://www.includeos.org/"
     exports_sources = 'files/elf.h'
 
+    @property
+    def default_channel(self):
+        return "test"
+
     def build_requirements(self):
-        self.build_requires("GSL/2.0.0@includeos/test")
+        self.build_requires("GSL/2.0.0@{}/{}".format(self.user,self.channel))
 
     def source(self):
         repo = tools.Git(folder="includeos")

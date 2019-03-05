@@ -10,11 +10,16 @@ from conans import ConanFile,tools,AutoToolsBuildEnvironment
 class MuslConan(ConanFile):
     settings= "compiler","arch","build_type","os"
     name = "musl"
-    version = "v1.1.19"
+    default_user = "includeos"
+	version = "v1.1.19"
     license = 'MIT'
-
     description = 'musl - an implementation of the standard library for Linux-based systems'
     url = "https://www.musl-libc.org/"
+
+    @property
+    def default_channel(self):
+        return "test"
+        
     exports_sources=['../../../etc*musl*musl.patch', '../../../etc*musl*endian.patch','../../../api*syscalls.h','../../../etc*musl*syscall.h']
 
     def build_requirements(self):

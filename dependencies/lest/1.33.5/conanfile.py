@@ -30,4 +30,3 @@ class UplinkConan(ConanFile):
 
     def deploy(self):
         self.copy("*",dst="include",src="include")
-    

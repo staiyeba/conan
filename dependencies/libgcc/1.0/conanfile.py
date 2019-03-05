@@ -5,10 +5,14 @@ from conans import ConanFile
 class LibgccConan(ConanFile):
     settings= "compiler","arch","build_type","os"
     name = "libgcc"
-    version = "1.0"
+	version = "1.0"
     license = 'GPL3'
     description = 'GNU compiler collection'
     url = "https://llvm.org/"
+
+    @property
+    def default_channel(self):
+        return "test"
 
     def build(self):
         iobuf = StringIO()

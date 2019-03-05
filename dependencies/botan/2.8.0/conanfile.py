@@ -3,10 +3,15 @@ from conans import ConanFile,tools
 class BotanConan(ConanFile):
     settings= "os","arch","build_type","compiler"
     name = "botan"
-    version = "2.8.0"
+    default_user = "includeos" 
+	version = "2.8.0"
     license = 'BSD 2-Clause'
     description = 'Botan: Crypto and TLS for Modern C++'
     url = "https://github.com/Tencent/rapidjson/"
+
+    @property
+    def default_channel(self):
+        return "test"
 
     keep_imports=True
 

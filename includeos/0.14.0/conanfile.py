@@ -6,10 +6,15 @@ from conans import ConanFile,tools,CMake
 class IncludeOSConan(ConanFile):
     settings= "os","arch","build_type","compiler"
     name = "includeos"
+    default_user = "includeos"
     license = 'Apache-2.0'
     description = 'Run your application with zero overhead'
     generators = 'cmake'
     url = "http://www.includeos.org/"
+
+    @property
+    def default_channel(self):
+        return "test"
 
     options = {
         "apple":['',True],
@@ -25,22 +30,22 @@ class IncludeOSConan(ConanFile):
     no_copy_source=True
     #keep_imports=True
     def requirements(self):
-        self.requires("libcxx/[>=5.0]@includeos/test")## do we need this or just headers
-        self.requires("GSL/2.0.0@includeos/test")
+        self.requires("libcxx/[>=5.0]@{}/{}".format(self.user,self.channel))## do we need this or just headers
+        self.requires("GSL/[>=2.0.0]@{}/{}".format(self.user,self.channel))
 
         if self.options.basic == 'OFF':
-            self.requires("rapidjson/1.1.0@includeos/test")
-            self.requires("http-parser/2.8.1@includeos/test") #this one is almost free anyways
-            self.requires("uzlib/v2.1.1@includeos/test")
-            self.requires("protobuf/3.5.1.1@includeos/test")
-            self.requires("botan/2.8.0@includeos/test")
-            self.requires("openssl/1.1.1@includeos/test")
-            self.requires("s2n/1.1.1@includeos/test")
+            self.requires("rapidjson/[>=1.1.0]@{}/{}".format(self.user,self.channel))
+            self.requires("http-parser/[>=2.8.1]@{}/{}".format(self.user,self.channel)) #this one is almost free anyways
+            self.requires("uzlib/[>=v2.1.1]@{}/{}".format(self.user,self.channel))
+            self.requires("protobuf/[>=3.5.1.1]@{}/{}".format(self.user,self.channel))
+            self.requires("botan/[>=2.8.0]@{}/{}".format(self.user,self.channel))
+            self.requires("openssl/[>=1.1.1]@{}/{}".format(self.user,self.channel))
+            self.requires("s2n/[>=1.1.1]@{}/{}".format(self.user,self.channel))
 
         #if (self.options.apple):
-            self.requires("libgcc/1.0@includeos/test")
+            self.requires("libgcc/1.0@{}/{}".format(self.user,self.channel))
         if (self.options.solo5):
-            self.requires("solo5/0.4.1@includeos/test")
+            self.requires("solo5/0.4.1@{}/{}".format(self.user,self.channel))
     def configure(self):
         del self.settings.compiler.libcxx
     def imports(self):
