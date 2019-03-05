@@ -87,7 +87,7 @@ def create_dependencies_build_commands(version, profiles, target_oss, target_arc
   target_architectures = "${target_architectures}".replaceAll("\\s", "").split(',')
   build_types = "${build_types}".replaceAll("\\s", "").split(',')
   file_path = "${conanfile_path}"
-  conan_specify_channel = "${conan_specify_channel}".replaceAll("\\s", "").split(',')
+  conan_specify_channel = "${conan_specify_channel}"
   // Loop to create all build tasks
   def builds = [:]
 
