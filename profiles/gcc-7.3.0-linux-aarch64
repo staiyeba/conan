@@ -9,9 +9,9 @@ compiler.libcxx=libstdc++11
 build_type=Release
 [options]
 [build_requires]
-*: binutils/2.31@includeos/test
+*: binutils/2.31@includeos/toolchain
 [env]
-CC=aarch64-unknown-linux-gnu-gcc-7.3.0
-CXX=aarch64-unknown-linux-gnu-g++-7.3.0
+CC=aarch64-linux-gnu-gcc
+CXX=aarch64-linux-gnu-g++
 CFLAGS=-mcpu=cortex-a53
 CXXFLAGS=-mcpu=cortex-a53
