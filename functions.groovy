@@ -104,7 +104,7 @@ def create_dependencies_build_commands(version, profiles, target_oss, target_arc
           else if (conan_specify_channel.length() > 0) {
             buildCmd += "${conan_specify_channel}"
           }
-          else
+          else {
             buildCmd += "${conan_channel}"
           }
 
