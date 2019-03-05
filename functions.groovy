@@ -20,6 +20,7 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
   target_architectures = "${target_architectures}".replaceAll("\\s", "").split(',')
   build_types = "${build_types}".replaceAll("\\s", "").split(',')
   file_path = "${conanfile_path}"
+
   // NEED TO PASS the package name to this parameter pkg_name
   // pkg_name =  conanfile_path - 'tools/'
   regexTools = ~/\btools\w*\b\//
@@ -68,14 +69,14 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
   return builds
 }
 
-def create_dependencies_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path, conan_user, conan_channel) {
+def create_dependencies_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path, conan_user, conan_channel, conan_specify_channel) {
   // clean the input parameters
   profiles = "${profiles}".replaceAll("\\s", "").split(',')
   target_oss = "${target_oss}".replaceAll("\\s", "").split(',')
   target_architectures = "${target_architectures}".replaceAll("\\s", "").split(',')
   build_types = "${build_types}".replaceAll("\\s", "").split(',')
   file_path = "${conanfile_path}"
-  
+  conan_specify_channel = "${conan_specify_channel}"
   // Loop to create all build tasks
   def builds = [:]
 
@@ -89,7 +90,10 @@ def create_dependencies_build_commands(version, profiles, target_oss, target_arc
           if (file_path.contains('binutils')) {
             buildCmd += "toolchain"
           }
-          else {
+          else if (conan_specify_channel.length() > 0) {
+            buildCmd += "${conan_specify_channel}"
+          }
+          else
             buildCmd += "${conan_channel}"
           }
 
