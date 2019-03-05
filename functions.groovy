@@ -17,6 +17,24 @@ def upload_package_command(version, conanfile_path, conan_user, conan_channel, c
   return builds
 }
 
+// only use when copying package from test channel to official includeos channel
+def copy_package_official(version, conanfile_path, conan_user, conan_channel, conan_specify_channel) {
+  String buildCmd = "conan copy --all -p ${conanfile_path} ${conanfile_path}@${conan_user}/"
+
+  if (conan_specify_channel.length() > 0) {
+    buildCmd += "${conan_specify_channel}"
+  }
+  else {
+    buildCmd += "${conan_channel}"
+  }
+
+  buildCmd += " -r ${conan_user}/<includeos-official>" // name of official channel (not test or test-package)
+
+  builds = "${buildCmd}"
+  return builds
+
+}
+
 def conanfile_path(jenkinsfile_path, version) {
   def regexSuffix = ~/\/Jenkinsfile$/
   def path = "${jenkinsfile_path}" - regexSuffix
