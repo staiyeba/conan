@@ -16,9 +16,11 @@ class BinutilsConan(ConanFile):
         tools.unzip(zip_name)
 
     def _find_arch(self):
-        if str(self.settings.arch) == "x86":
-            return "i386"
-        return str(self.settings.arch)
+        return {
+                "x86":"i386",
+                "x86_64":"x86_64",
+                "armv8" :"aarch64"
+        }.get(str(self.settings.arch))
 
     def _find_host_arch(self):
         if str(self.settings.arch_build) == "x86":
