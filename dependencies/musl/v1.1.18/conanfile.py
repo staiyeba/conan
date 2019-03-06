@@ -33,7 +33,7 @@ class MuslConan(ConanFile):
 
     def source(self):
         git = tools.Git(folder="musl")
-        git.clone("https://github.com/includeos/musl.git",branch="master")
+        git.clone("git://git.musl-libc.org/musl/",branch=self.version)
         # Replace syscall API's
         tools.patch(base_path="musl",patch_file="files/musl.patch", strip=1)
         tools.patch(base_path="musl",patch_file="files/endian.patch", strip=1)
