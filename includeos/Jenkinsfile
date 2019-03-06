@@ -58,8 +58,6 @@ pipeline {
 
             def upload_command = p.upload_package_command("${params.Version}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}", "${params.Conan_specify_channel}")
 
-            upload_command =  upload_command - '/'
-
             println upload_command
 
             sh "${upload_command}"
