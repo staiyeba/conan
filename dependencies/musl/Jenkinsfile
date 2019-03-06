@@ -17,7 +17,6 @@ pipeline {
         script {
           // Only run if a version was selected
           if ("${params.Version}" == "") {
-            currentBuild.result = 'SUCCESS'
             echo "No version was selected, exiting"
           } else {
             currentBuild.displayName = "${params.Version}-${params.Profiles}"
@@ -25,8 +24,6 @@ pipeline {
 
             p = load 'functions.groovy'
             def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
-
-            // TODO: CHANGE THIS FUNCTION HERE
             def build_cmds = p.create_dependencies_build_commands("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}", "${params.Conan_specify_channel}")
 
             stash name: 'all'
@@ -43,9 +40,7 @@ pipeline {
                 }
               }
             }
-
             parallel builds
-
           }
         }
       }
