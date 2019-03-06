@@ -10,7 +10,7 @@ class ProtobufConan(ConanFile):
     settings="os","compiler","build_type","arch"
     name = "protobuf"
     default_user = "includeos"
-	version = "3.5.1.1"
+    version = "3.5.1.1"
     options = {"threads":[True, False]}
     default_options = {"threads": True}
     license = 'Apache 2.0'

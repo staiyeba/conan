@@ -6,7 +6,7 @@ class VmbuildConan(ConanFile):
     settings= "os","arch"
     name = "vmbuild"
     default_user = "includeos"
-	version = "0.14.0"
+    version = "0.14.0"
     license = 'Apache-2.0'
     description = 'Run your application with zero overhead'
     generators = 'cmake'

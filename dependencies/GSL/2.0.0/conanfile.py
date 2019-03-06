@@ -6,7 +6,7 @@ from conans import ConanFile,tools
 class GslConan(ConanFile):
     name = "GSL"
     license = 'MIT'
-	version = "2.0.0"
+    version = "2.0.0"
     description = 'GSL: Guideline Support Library'
     url = "https://github.com/Microsoft/GSL"
     no_copy_source=True

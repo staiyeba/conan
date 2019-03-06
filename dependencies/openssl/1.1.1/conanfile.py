@@ -9,8 +9,8 @@ from conans import ConanFile,CMake,tools
 class OpenSSLConan(ConanFile):
     settings="os","compiler","build_type","arch"
     name = "openssl"
-    default_user = "includeos" 
-	version = "1.1.1" ##if we remove this line we can specify it from outside this script!! ps ps
+    default_user = "includeos"
+    version = "1.1.1" ##if we remove this line we can specify it from outside this script!! ps ps
 
     options = {
         "threads":[True, False],

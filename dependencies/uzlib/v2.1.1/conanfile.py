@@ -4,7 +4,7 @@ from conans import ConanFile,tools
 class UzlibConan(ConanFile):
     settings="os","compiler","build_type","arch"
     name = "uzlib"
-	version = "v2.1.1" #2.1.1 is probably the right one
+    version = "v2.1.1" #2.1.1 is probably the right one
     license = 'zlib'
     description = 'uzlib - Deflate/Zlib-compatible LZ77 compression/decompression library'
     url = "http://www.ibsensoftware.com/"

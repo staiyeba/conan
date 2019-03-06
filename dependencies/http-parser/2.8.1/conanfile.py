@@ -4,7 +4,7 @@ from conans import ConanFile,tools
 class HttpParserConan(ConanFile):
     settings="os","compiler","build_type","arch"
     name = "http-parser"
-	version = "2.8.1"
+    version = "2.8.1"
     license = 'MIT'
     description = 'This is a parser for HTTP messages written in C'
     url = "https://github.com/nodejs/http-parser"

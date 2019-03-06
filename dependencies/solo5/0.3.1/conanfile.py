@@ -5,7 +5,7 @@ class Solo5Conan(ConanFile):
     settings= "compiler","arch","build_type","os"
     name = "solo5"
     default_user = "includeos"
-	version = "0.3.1"
+    version = "0.3.1"
     url = "https://github.com/Solo5/solo5"
     description = "A sandboxed execution environment for unikernels. Linux only for now."
     license = "ISC"

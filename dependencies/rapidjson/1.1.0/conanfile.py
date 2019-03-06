@@ -2,7 +2,7 @@ from conans import ConanFile,tools
 
 class RapidJsonConan(ConanFile):
     name = "rapidjson"
-	version = "1.1.0"
+    version = "1.1.0"
     branch = "version"+version
     license = 'MIT'
     description = 'A fast JSON parser/generator for C++ with both SAX/DOM style API'
