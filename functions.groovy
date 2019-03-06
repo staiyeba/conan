@@ -80,6 +80,8 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
           String buildName = "${prof}-${b_type}-${t_os}"
           String buildCmd = "conan create ${conanfile_path} -pr ${prof} ${pkg_name}@${conan_user}/"
 
+          // the channel repo specified here also points dependent packages of
+          // this package to be built from this repo/channel
           if (conan_specify_channel.length() > 0) {
             buildCmd += "${conan_specify_channel}"
           }
