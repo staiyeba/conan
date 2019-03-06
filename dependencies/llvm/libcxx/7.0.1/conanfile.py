@@ -6,8 +6,8 @@ from conans import ConanFile,tools,CMake
 class LibCxxConan(ConanFile):
     settings= "compiler","arch","build_type","os"
     name = "libcxx"
-    default_user = "includeos" 
-	version = "7.0.1"
+    default_user = "includeos"
+    version = "7.0.1"
     generators="cmake"
     license = 'NCSA','MIT'
     description = 'The LLVM Compiler Infrastructure C++ library'
@@ -16,7 +16,7 @@ class LibCxxConan(ConanFile):
     @property
     def default_channel(self):
         return "test"
-        
+
     options ={
         "shared":[True,False],
         "threads":[True,False]
