@@ -28,10 +28,6 @@ class MuslConan(ConanFile):
         git = tools.Git(folder="musl")
         git.clone("https://github.com/includeos/musl.git",branch="master")
 
-        # Replace syscall API's
-        os.unlink("musl/arch/x86_64/syscall_arch.h")
-        os.unlink("musl/arch/i386/syscall_arch.h")
-
     def _find_arch(self):
         return {
             "x86_64":"x86_64",
@@ -58,7 +54,7 @@ class MuslConan(ConanFile):
         if str(self.settings.compiler) == 'clang':
             env_build.flags=["-g","-target {}-pc-linux-gnu".format(self._find_arch())]
             args.append("--target={}-pc-linux-gnu".format(self._find_arch()))
-            
+
         #TODO fix this is only correct if the host is x86_64
         if str(self.settings.compiler) == 'gcc':
             if self._find_arch() == "x86_64":
