@@ -18,6 +18,11 @@ class MuslConan(ConanFile):
     def default_channel(self):
         return "test"
 
+    exports_sources=[
+        'files*api_syscalls.h',
+        'files*syscall.h'
+    ]
+
     def imports(self):
         self.copy("*",dst=".",src=".")
 
@@ -27,6 +32,8 @@ class MuslConan(ConanFile):
     def source(self):
         git = tools.Git(folder="musl")
         git.clone("https://github.com/includeos/musl.git",branch="master")
+        shutil.copy("files/api_syscalls.h","musl/src/internal/includeos_syscalls.h")
+        shutil.copy("files/syscall.h","musl/src/internal")
 
     def _find_arch(self):
         return {
