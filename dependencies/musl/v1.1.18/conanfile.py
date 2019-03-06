@@ -18,13 +18,6 @@ class MuslConan(ConanFile):
     def default_channel(self):
         return "test"
 
-    exports_sources=[
-#        'files*musl.patch',
-#        'files*endian.patch',
-        'files*api_syscalls.h',
-        'files*syscall.h'
-    ]
-
     def imports(self):
         self.copy("*",dst=".",src=".")
 
@@ -34,18 +27,17 @@ class MuslConan(ConanFile):
     def source(self):
         git = tools.Git(folder="musl")
         git.clone("https://github.com/includeos/musl.git",branch="master")
+
         # Replace syscall API's
-#        tools.patch(base_path="musl",patch_file="files/musl.patch", strip=1)
-#        tools.patch(base_path="musl",patch_file="files/endian.patch", strip=1)
-        shutil.copy("files/api_syscalls.h","musl/src/internal/includeos_syscalls.h")
-        shutil.copy("files/syscall.h","musl/src/internal")
+        os.unlink("musl/arch/x86_64/syscall_arch.h")
+        os.unlink("musl/arch/i386/syscall_arch.h")
 
     def _find_arch(self):
-        return {
-            "x86_64":"x86_64",
-            "x86" : "i386",
-            "armv8" : "aarch64"
-        }.get(str(self.settings.arch))
+        if str(self.settings.arch) == "x86_64":
+            return "x86_64"
+        if str(self.settings.arch) == "x86" :
+            return "i386"
+        raise ConanInvalidConfiguration("Binutils no valid target for {}".format(self.settings.arch))
 
     def _find_host_arch(self):
         if str(self.settings.arch_build) == "x86":
@@ -53,7 +45,6 @@ class MuslConan(ConanFile):
         return str(self.settings.arch_build)
 
     def build(self):
-        os.unlink("musl/arch/{}/syscall_arch.h".format(self._find_arch()))
         host = self._find_host_arch()+"-pc-linux-gnu"
         triple = self._find_arch()+"-elf"
         args=[
@@ -65,7 +56,6 @@ class MuslConan(ConanFile):
         env_build = AutoToolsBuildEnvironment(self)
         if str(self.settings.compiler) == 'clang':
             env_build.flags=["-g","-target {}-pc-linux-gnu".format(self._find_arch())]
-            args.append("--target={}-pc-linux-gnu".format(self._find_arch()))
         #TODO fix this is only correct if the host is x86_64
         if str(self.settings.compiler) == 'gcc':
             if self._find_arch() == "x86_64":
@@ -84,6 +74,7 @@ class MuslConan(ConanFile):
 
     def package(self):
         self.copy("*.h",dst="include",src="musl/include")
+        self.copy("includeos_syscalls.h",dst="include",src="musl/src/internal")
         self.copy("*.a",dst="lib",src="lib")
         self.copy("*.o",dst="lib",src="lib")
 
