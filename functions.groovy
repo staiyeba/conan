@@ -45,13 +45,14 @@ def conanfile_path(jenkinsfile_path, version) {
   return conanfile
 }
 
-def create_external_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path, conan_user, conan_channel) {
+def create_external_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path, conan_user, conan_channel, conan_specify_channel) {
   // clean the input parameters
   profiles = "${profiles}".replaceAll("\\s", "").split(',')
   target_oss = "${target_oss}".replaceAll("\\s", "").split(',')
   target_architectures = "${target_architectures}".replaceAll("\\s", "").split(',')
   build_types = "${build_types}".replaceAll("\\s", "").split(',')
   file_path = "${conanfile_path}"
+  conan_specify_channel = "${conan_specify_channel}"
 
   // NEED TO PASS the package name to this parameter pkg_name
   // pkg_name =  conanfile_path - 'tools/'
@@ -77,7 +78,14 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
       for (t_arch in target_architectures) {
         for (b_type in build_types) {
           String buildName = "${prof}-${b_type}-${t_os}"
-          String buildCmd = "conan create ${conanfile_path} -pr ${prof} ${pkg_name}@${conan_user}/${conan_channel}"
+          String buildCmd = "conan create ${conanfile_path} -pr ${prof} ${pkg_name}@${conan_user}/"
+
+          if (conan_specify_channel.length() > 0) {
+            buildCmd += "${conan_specify_channel}"
+          }
+          else {
+            buildCmd += "${conan_channel}"
+          }
 
           if (b_type.length() > 0) {
             buildCmd += " -s build_type=${b_type}"
