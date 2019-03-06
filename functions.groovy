@@ -28,7 +28,10 @@ def copy_package_official(version, conanfile_path, conan_user, conan_channel, co
     buildCmd += "${conan_channel}"
   }
 
-  buildCmd += " -r ${conan_user}/<includeos-official>" // name of official channel (not test or test-package)
+  // name of official repo in < >(not test or test-package)
+  // default repo: test (atm)
+  // default channel: test (atm)
+  buildCmd += " -r ${conan_user}/<includeos-official>"
 
   builds = "${buildCmd}"
   return builds
