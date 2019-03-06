@@ -7,7 +7,7 @@ class LibUnwindConan(ConanFile):
     #TODO check if the os matters at all here.. a .a from os a is compatible with os b
     settings= "compiler","arch","build_type","os"
     name = "libunwind"
-	version = "7.0.1"
+    version = "7.0.1"
     license = 'NCSA','MIT'
     #version = [5.0.2,6.0.1,7.0.1] are known to be valid
     description = 'The LLVM Compiler Infrastructure Unwinder'
