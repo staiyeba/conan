@@ -3,7 +3,7 @@
 pipeline {
   agent { label 'buildpkg-ubuntu1804' }
   parameters {
-    choice(name: 'Version', choices: ['', '2.31'], description: 'Target version to build') 
+    choice(name: 'Version', choices: ['', '2.31'], description: 'Target version to build')
  		string(name: 'Conan_specify_channel', defaultValue: '', description: 'Default channel: test, Choice: stable, official')
     string(name: 'Profiles', defaultValue: 'clang-6.0-linux-x86-toolchain, clang-6.0-linux-x86_64-toolchain, gcc-7.3.0-linux-x86_64-toolchain, gcc-8.2.0-linux-aarch64-toolchain', description: 'Profiles to build with, multiple can be listed')
     string(name: 'Target_os', defaultValue: '', description: 'Target operating system, multiple can be listed. available: Linux, Macos')

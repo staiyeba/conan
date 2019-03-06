@@ -6,6 +6,7 @@ class BinutilsConan(ConanFile):
     #pre conan 2.0 we have to use arch_build as host arch and arch as target arch
     settings= "arch_build","os_build","arch"
     name = "binutils"
+    version = "2.31"
     default_user = "includeos"
     url = "https://www.gnu.org/software/binutils/"
     description = "The GNU Binutils are a collection of binary tools."
