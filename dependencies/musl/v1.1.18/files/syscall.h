@@ -1,6 +1,10 @@
 #ifndef _INTERNAL_SYSCALL_H
 #define _INTERNAL_SYSCALL_H
 
+#if !defined(SYS_fork)
+  #define SYS_fork
+#endif
+
 #include <sys/syscall.h>
 #include "includeos_syscalls.h"
 
