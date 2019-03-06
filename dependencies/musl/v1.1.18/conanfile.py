@@ -36,7 +36,7 @@ class MuslConan(ConanFile):
         git.clone("https://github.com/includeos/musl.git",branch="master")
         # Replace syscall API's
 #        tools.patch(base_path="musl",patch_file="files/musl.patch", strip=1)
-        tools.patch(base_path="musl",patch_file="files/endian.patch", strip=1)
+#        tools.patch(base_path="musl",patch_file="files/endian.patch", strip=1)
         shutil.copy("files/api_syscalls.h","musl/src/internal/includeos_syscalls.h")
         shutil.copy("files/syscall.h","musl/src/internal")
 
