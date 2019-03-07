@@ -4,13 +4,13 @@ class Solo5Conan(ConanFile):
     settings= "compiler","arch","build_type","os"
     name = "solo5"
     version = "0.4.1"
-    url = "https://github.com/Solo5/solo5"
+    url = "https://github.com/includeos/solo5.git"
     description = "A sandboxed execution environment for unikernels. Linux only for now."
     license = "ISC"
 
     def source(self):
         repo = tools.Git(folder = self.name)
-        repo.clone(self.url + ".git",branch="v{}".format(self.version))
+        repo.clone(self.url + ".git",branch="ssp-fix")
 
     def build(self):
         self.run("CC=gcc ./configure.sh", cwd=self.name)
