@@ -29,7 +29,7 @@ class LibCxxConan(ConanFile):
     no_copy_source=True
 
     def requirements(self):
-        self.requires("musl/1.18@{}/{}".format(self.user,self.channel))
+        self.requires("musl/1.1.18@{}/{}".format(self.user,self.channel))
         self.requires("libunwind/{}@{}/{}".format(self.version,self.user,self.channel))
         self.requires("libcxxabi/{}@{}/{}".format(self.version,self.user,self.channel))
 

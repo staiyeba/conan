@@ -9,7 +9,7 @@ class MuslConan(ConanFile):
     settings= "compiler","arch","build_type","arch_build"
     name = "musl"
     default_user = "includeos"
-    version = "1.18"
+    version = "1.1.18"
     license = 'MIT'
     description = 'musl - an implementation of the standard library for Linux-based systems'
     url = "https://www.musl-libc.org/"
