@@ -3,7 +3,7 @@ from conans import ConanFile,tools
 class BotanConan(ConanFile):
     settings= "os","arch","build_type","compiler"
     name = "botan"
-    default_user = "includeos" 
+    default_user = "includeos"
 	version = "2.8.0"
     license = 'BSD 2-Clause'
     description = 'Botan: Crypto and TLS for Modern C++'
@@ -17,7 +17,7 @@ class BotanConan(ConanFile):
 
     def requirements(self):
         self.requires("libcxx/[>=5.0]@{}/{}".format(self.user,self.channel))
-        self.requires("musl/v1.1.18@{}/{}".format(self.user,self.channel))
+        self.requires("musl/1.18@{}/{}".format(self.user,self.channel))
     def imports(self):
         self.copy("*",dst="include",src="include")
 
