@@ -4,7 +4,7 @@ class BotanConan(ConanFile):
     settings= "os","arch","build_type","compiler"
     name = "botan"
     default_user = "includeos"
-	version = "2.8.0"
+    version = "2.8.0"
     license = 'BSD 2-Clause'
     description = 'Botan: Crypto and TLS for Modern C++'
     url = "https://github.com/Tencent/rapidjson/"
