@@ -18,11 +18,6 @@ class MuslConan(ConanFile):
     def default_channel(self):
         return "test"
 
-    exports_sources=[
-        'files*includeos_syscalls.h',
-        'files*syscall.h'
-    ]
-
     def imports(self):
         self.copy("*",dst=".",src=".")
 
@@ -31,9 +26,7 @@ class MuslConan(ConanFile):
 
     def source(self):
         git = tools.Git(folder="musl")
-        git.clone("https://github.com/includeos/musl.git",branch="master")
-        shutil.copy("files/includeos_syscalls.h","musl/src/internal/includeos_syscalls.h")
-        shutil.copy("files/syscall.h","musl/src/internal")
+        git.clone("https://github.com/includeos/musl.git",branch="1.18")
 
     def _find_arch(self):
         return {
@@ -49,6 +42,8 @@ class MuslConan(ConanFile):
 
     def build(self):
         os.unlink("musl/arch/{}/syscall_arch.h".format(self._find_arch()))
+        # this will remove set_thread_area which is just a regular function now
+        os.unlink("musl/src/thread/{}/__set_thread_area.s".format(self._find_arch()))
         host = self._find_host_arch()+"-pc-linux-gnu"
         triple = self._find_arch()+"-elf"
         args=[
