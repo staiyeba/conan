@@ -124,7 +124,7 @@ stage('Create jobs') {
                   git {
                     remote {
                       url("${git_url}")
-                      credentials('mnordsletten-github-user-pass-conan-build-testing')
+                      credentials('jenkins-includeos-user-pass')
                     }
                     branch('master')
                     scriptPath("${path}")
