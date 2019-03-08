@@ -1,5 +1,5 @@
 // The folderName is used below when giving name to all the jobs. This to ensure that they end up in the correct folder.
-def folderName = 'IncludeOS Github Organization/conan'
+def folderName = 'IncludeOS\ Github\ Organization\/conan'
 
 // Name/label of the worker that should be used, this name is also set in the individual build jobs Jenkinsfile
 def worker_node = 'buildpkg-ubuntu1804'
