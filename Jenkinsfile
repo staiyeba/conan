@@ -19,37 +19,9 @@ stage('Create folders') {
         displayName('Conan')
         description('Build jobs for all IncludOS dependencies built with Conan')
         views {
-          listView('includeos') {
-            jobs {
-              regex('includeos-.+')
-            }
-            columns {
-              status()
-              weather()
-              name()
-              lastSuccess()
-              lastFailure()
-              lastDuration()
-              buildButton()
-            }
-          }
           listView('dependencies') {
             jobs {
               regex('dependencies-.+')
-            }
-            columns {
-              status()
-              weather()
-              name()
-              lastSuccess()
-              lastFailure()
-              lastDuration()
-              buildButton()
-            }
-          }
-          listView('libraries') {
-            jobs {
-              regex('libraries-.+')
             }
             columns {
               status()
