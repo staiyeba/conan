@@ -56,7 +56,7 @@ pipeline {
             p = load 'functions.groovy'
             def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
 
-            def upload_command = p.upload_package_command("${params.Version}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}", "${params.Conan_specify_channel}")
+            def upload_command = p.upload_package_command("${params.Version}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}", "${params.Conan_specify_channel}", "${env.CONAN_CHANNEL}")
 
             upload_command =  upload_command - 'dependencies/'
 

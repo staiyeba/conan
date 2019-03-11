@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def upload_package_command(version, conanfile_path, conan_user, conan_channel, conan_specify_channel) {
+def upload_package_command(version, conanfile_path, conan_user, conan_channel, conan_specify_channel, conan_remote) {
 
   String buildCmd = "conan upload --all ${conanfile_path}@${conan_user}/"
 
@@ -11,7 +11,7 @@ def upload_package_command(version, conanfile_path, conan_user, conan_channel, c
     buildCmd += "${conan_channel}"
   }
 
-  buildCmd += " -r ${conan_user}/${conan_channel}"
+  buildCmd += " -r ${conan_remote}"
 
   builds = "${buildCmd}"
   return builds

@@ -8,6 +8,7 @@ def worker_node = 'buildpkg-ubuntu1804'
 def conan_user = 'includeos'
 def conan_channel = 'test'
 def conan_home = '/home/ubuntu'
+def conan_remote = 'includeos-test-deps'
 
 // Create a folder to keep all the jobs that are created in. Also create views based on what type of build job it is.
 stage('Create folders') {
@@ -86,6 +87,7 @@ stage('Create jobs') {
               env('CONAN_USER', "${conan_user}")
               env('CONAN_CHANNEL', "${conan_channel}")
               env('CONAN_USER_HOME', "${conan_home}")
+              env('CONAN_REMOTE', "${conan_remote}")
             }
             definition {
               cpsScm {
