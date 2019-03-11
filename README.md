@@ -2,7 +2,6 @@
 Contains all configuration files for building IncludeOS dependencies.
 These are the main categories of build jobs:
  - Dependencies: 3rd party external dependencies
- - Libraries: ...
  - Tools: Internal IncludeOS tools
 
 # Creating/adding new build jobs
@@ -16,4 +15,4 @@ The Jenkinsfile should contain:
 # Workflow
 1. Root Jenkinsfile: JobDSL to create 1 **Unique** build job pr dependency.
 2. Each dependency needs to have a Jenkinsfile and a conanfile.py
-3. Root Jenkinsfile: Scans the includeos/conan repo for .......
+3. Root Jenkinsfile: Scans the includeos/conan repo for all Jenkinsfiles excluding itself. 
