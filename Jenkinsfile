@@ -5,13 +5,11 @@ def folderName = 'conan'
 def worker_node = 'buildpkg-ubuntu1804'
 
 // Settings for conan
-def artifactory_name = "kristianj"
-def artifactory_repo = "includeos-develop"
 def conan_user = 'includeos'
 def conan_channel = 'test'
 def conan_home = '/home/ubuntu'
 
-// Create a folder to keep all the jobs that are created in. Also create 3 views based on what type of build job it is.
+// Create a folder to keep all the jobs that are created in. Also create views based on what type of build job it is.
 stage('Create folders') {
   node() {
     jobDsl scriptText: """
