@@ -15,4 +15,4 @@ The Jenkinsfile should contain:
 # Workflow
 1. Root Jenkinsfile: JobDSL to create 1 **Unique** build job pr dependency.
 2. Each dependency needs to have a Jenkinsfile and a conanfile.py
-3. Root Jenkinsfile: Scans the includeos/conan repo for all Jenkinsfiles excluding itself. 
+3. Root Jenkinsfile: Scans the includeos/conan repo for all Jenkinsfiles excluding itself.
