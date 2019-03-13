@@ -10,7 +10,7 @@ class Solo5Conan(ConanFile):
 
     def source(self):
         repo = tools.Git(folder = self.name)
-        repo.clone(self.url + ".git",branch="ssp-fix")
+        repo.clone(self.url, branch="ssp-fix")
 
     def build(self):
         self.run("CC=gcc ./configure.sh", cwd=self.name)
