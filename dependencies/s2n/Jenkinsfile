@@ -4,7 +4,7 @@ pipeline {
   agent { label 'buildpkg-ubuntu1804' }
   parameters {
     choice(name: 'Version', choices: ['', '1.1.1'], description: 'Target version to build') 
- 		string(name: 'Conan_specify_channel', defaultValue: '', description: 'Default channel: test, Choice: stable, official')
+ 		string(name: 'upload_channel', defaultValue: '', description: 'Default channel: test, Choice: stable, official')
     string(name: 'Profiles', defaultValue: 'gcc-7.3.0-linux-x86_64, clang-6.0-linux-x86_64', description: 'Profiles to build with, multiple can be listed')
     string(name: 'Target_os', defaultValue: '', description: 'Target operating system, multiple can be listed')
     string(name: 'Target_architectures', defaultValue: '', description: 'Target architecture, multiple can be listed')
@@ -25,7 +25,7 @@ pipeline {
             def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
 
             
-            def build_cmds = p.create_dependencies_build_commands("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}", "${params.Conan_specify_channel}")
+            def build_cmds = p.create_dependencies_build_commands("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}", "${params.upload_channel}")
 
             stash name: 'all'
 
@@ -59,7 +59,7 @@ pipeline {
             p = load 'functions.groovy'
             def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
 
-            def upload_command = p.upload_package_command("${params.Version}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}", "${params.Conan_specify_channel}", "${env.CONAN_REMOTE}")
+            def upload_command = p.upload_package_command("${params.Version}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}", "${params.upload_channel}", "${env.CONAN_REMOTE}")
 
             upload_command =  upload_command - 'dependencies/'
 

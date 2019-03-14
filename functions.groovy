@@ -1,11 +1,11 @@
 #!/usr/bin/env groovy
 
-def upload_package_command(version, conanfile_path, conan_user, conan_channel, conan_specify_channel, conan_remote) {
+def upload_package_command(version, conanfile_path, conan_user, conan_channel, upload_channel, conan_remote) {
 
   String buildCmd = "conan upload --all ${conanfile_path}@${conan_user}/"
 
-  if (conan_specify_channel.length() > 0) {
-    buildCmd += "${conan_specify_channel}"
+  if (upload_channel.length() > 0) {
+    buildCmd += "${upload_channel}"
   }
   else {
     buildCmd += "${conan_channel}"
@@ -17,20 +17,22 @@ def upload_package_command(version, conanfile_path, conan_user, conan_channel, c
   return builds
 }
 
-// only use when copying package from test channel to official includeos channel
-def copy_package_official(version, conanfile_path, conan_user, conan_channel, conan_specify_channel) {
+// FUNCTION: not in use atm
+// only use when copying package from test repo to official includeos repo
+def copy_package_official(version, conanfile_path, conan_user, conan_channel, upload_channel) {
   String buildCmd = "conan copy --all -p ${conanfile_path} ${conanfile_path}@${conan_user}/"
 
-  if (conan_specify_channel.length() > 0) {
-    buildCmd += "${conan_specify_channel}"
+  if (upload_channel.length() > 0) {
+    buildCmd += "${upload_channel}"
   }
   else {
     buildCmd += "${conan_channel}"
   }
-
+  // TODO::
   // name of official repo in < >(not test or test-package)
   // default repo: test (atm)
   // default channel: test (atm)
+  // official repo in use atm : test-packages
   buildCmd += " -r ${conan_user}/<includeos-official>"
 
   builds = "${buildCmd}"
@@ -45,14 +47,14 @@ def conanfile_path(jenkinsfile_path, version) {
   return conanfile
 }
 
-def create_external_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path, conan_user, conan_channel, conan_specify_channel) {
+def create_external_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path, conan_user, conan_channel, upload_channel) {
   // clean the input parameters
   profiles = "${profiles}".replaceAll("\\s", "").split(',')
   target_oss = "${target_oss}".replaceAll("\\s", "").split(',')
   target_architectures = "${target_architectures}".replaceAll("\\s", "").split(',')
   build_types = "${build_types}".replaceAll("\\s", "").split(',')
   file_path = "${conanfile_path}"
-  conan_specify_channel = "${conan_specify_channel}"
+  upload_channel = "${upload_channel}"
 
   // NEED TO PASS the package name to this parameter pkg_name
   // pkg_name =  conanfile_path - 'tools/'
@@ -82,8 +84,8 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
 
           // the channel repo specified here also points dependent packages of
           // this package to be built from this repo/channel
-          if (conan_specify_channel.length() > 0) {
-            buildCmd += "${conan_specify_channel}"
+          if (upload_channel.length() > 0) {
+            buildCmd += "${upload_channel}"
           }
           else {
             buildCmd += "${conan_channel}"
@@ -111,14 +113,14 @@ def create_external_build_commands(version, profiles, target_oss, target_archite
   return builds
 }
 
-def create_dependencies_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path, conan_user, conan_channel, conan_specify_channel) {
+def create_dependencies_build_commands(version, profiles, target_oss, target_architectures, build_types, conanfile_path, conan_user, conan_channel, upload_channel) {
   // clean the input parameters
   profiles = "${profiles}".replaceAll("\\s", "").split(',')
   target_oss = "${target_oss}".replaceAll("\\s", "").split(',')
   target_architectures = "${target_architectures}".replaceAll("\\s", "").split(',')
   build_types = "${build_types}".replaceAll("\\s", "").split(',')
   file_path = "${conanfile_path}"
-  conan_specify_channel = "${conan_specify_channel}"
+  upload_channel = "${upload_channel}"
   // Loop to create all build tasks
   def builds = [:]
 
@@ -132,8 +134,8 @@ def create_dependencies_build_commands(version, profiles, target_oss, target_arc
           if (file_path.contains('binutils')) {
             buildCmd += "toolchain"
           }
-          else if (conan_specify_channel.length() > 0) {
-            buildCmd += "${conan_specify_channel}"
+          else if (upload_channel.length() > 0) {
+            buildCmd += "${upload_channel}"
           }
           else {
             buildCmd += "${conan_channel}"
