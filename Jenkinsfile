@@ -32,20 +32,6 @@ stage('Create folders') {
               buildButton()
             }
           }
-          listView('tools') {
-            jobs {
-              regex('tools-.+')
-            }
-            columns {
-              status()
-              weather()
-              name()
-              lastSuccess()
-              lastFailure()
-              lastDuration()
-              buildButton()
-            }
-          }
         }
       }
     """
