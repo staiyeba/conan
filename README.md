@@ -11,6 +11,21 @@ The Jenkinsfile should contain:
 	- **IMPORTANT:** Make the choice parameter always have an empty item as the first choice. This is needed when initializing the jobs.
 - A stage that builds and calls the external
 For reference have a look at one of our structures.
+- A sample tree structure:
+
+	example:
+
+	conanfile: `dependencies/musl/1.1.21/conanfile.py`
+
+	Jenkinsfile: `dependencies/musl/Jenkinsfile`
+
+	So the tree would like:
+
+			- dependencies
+				- <dependency-name-dir>
+					- <semantic-version-number>
+						- conanfile.py
+					- Jenkinsfile
 
 ### Job build Workflow
 1. Root Jenkinsfile: JobDSL to create 1 **Unique** build job pr dependency.
