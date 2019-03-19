@@ -1,0 +1,74 @@
+// dependencies/GSL/Jenkinsfile
+
+pipeline {
+  agent { label 'buildpkg-ubuntu1804' }
+  parameters {
+    choice(name: 'Version', choices: ['', '1.4.7'], description: 'Target version to build')
+ 		string(name: 'upload_channel', defaultValue: '', description: 'Default channel: test, Choice: stable, official')
+    string(name: 'Profiles', defaultValue: 'gcc-8.2.0-linux-aarch64', description: 'Profiles to build with, multiple can be listed')
+    string(name: 'Target_os', defaultValue: '', description: 'Target operating system, multiple can be listed')
+    string(name: 'Target_architectures', defaultValue: '', description: 'Target architecture, multiple can be listed')
+    string(name: 'Build_types', defaultValue: 'Debug, Release', description: 'Type of build, multiple can be listed')
+  }
+  stages {
+    stage('Build') {
+      steps {
+        script {
+          // Only run if a version was selected
+          if ("${params.Version}" == "") {
+            echo "No version was selected, exiting"
+          } else {
+            currentBuild.displayName = "${params.Version}-${params.Profiles}"
+            currentBuild.description = "v:${params.Version}, prof:${params.Profiles}, os:${params.Target_os}, b_types:${params.Build_types}"
+
+            p = load 'functions.groovy'
+            def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
+
+
+            def build_cmds = p.create_dependencies_build_commands("${params.Version}", "${params.Profiles}", "${params.Target_os}", "${params.Target_architectures}", "${params.Build_types}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}", "${params.upload_channel}")
+
+            stash name: 'all'
+
+            def builds = [:]
+
+            build_cmds.each {
+              builds["${it.key}"] = {
+                node('buildpkg-ubuntu1804') {
+                  stage("${it.key}") {
+                    unstash 'all'
+                    sh "${it.value}"
+                  }
+                }
+              }
+            }
+
+            parallel builds
+
+          }
+        }
+      }
+    }
+
+    // If all packages have built correct, upload them to target in parallel
+    stage('Upload') {
+      steps {
+        script {
+          if ("${params.Version}" == "") {
+            echo "No version was selected, exiting"
+          } else {
+            p = load 'functions.groovy'
+            def conanfile_path = p.conanfile_path("${env.SCRIPT_PATH}", "${params.Version}")
+
+            def upload_command = p.upload_package_command("${params.Version}", "${conanfile_path}", "${env.CONAN_USER}", "${env.CONAN_CHANNEL}", "${params.upload_channel}", "${env.CONAN_REMOTE}")
+
+            upload_command =  upload_command - 'dependencies/'
+
+            println upload_command
+
+            sh "${upload_command}"
+          }
+        }
+      }
+    }
+  }
+}
