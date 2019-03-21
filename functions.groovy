@@ -4,7 +4,10 @@ def upload_package_command(version, conanfile_path, conan_user, conan_channel, u
 
   String buildCmd = "conan upload --all ${conanfile_path}@${conan_user}/"
 
-  if (upload_channel.length() > 0) {
+  if (conanfile_path.contains('binutils')) {
+    buildCmd += "toolchain"
+  }
+  else if (upload_channel.length() > 0) {
     buildCmd += "${upload_channel}"
   }
   else {
