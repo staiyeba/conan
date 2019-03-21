@@ -34,7 +34,6 @@ class BinutilsConan(ConanFile):
         env_build = AutoToolsBuildEnvironment(self)
         env_build.configure(configure_dir="binutils-{}".format(self.version),
             target=arch+"-elf",
-            host=self._find_host_arch()+"-pc-linux-gnu",
             args=["--disable-nls","--disable-werror"]) #what goes in here preferably
         env_build.make()
         env_build.install()
@@ -49,6 +48,7 @@ class BinutilsConan(ConanFile):
 
     def package_info(self):
         self.info.settings.arch_build="ANY"
+        self.env_info.path.append(os.path.join(self.package_folder, "{}-elf/bin".format(self._find_arch())))
         self.env_info.path.append(os.path.join(self.package_folder, "bin"))
 
     def deploy(self):
