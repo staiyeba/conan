@@ -8,7 +8,7 @@ def worker_node = 'buildpkg-ubuntu1804'
 def conan_user = 'includeos'
 def conan_channel = 'test'
 def conan_home = '/home/ubuntu'
-def conan_remote = 'includeos-test-deps'
+def conan_remote = 'includeos'
 
 // Create a folder to keep all the jobs that are created in. Also create views based on what type of build job it is.
 stage('Create folders') {
