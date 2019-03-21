@@ -28,8 +28,6 @@ class S2nConan(ConanFile):
     def configure(self):
         #TODO fix the FORTIFY_SOURCE ISSUE IN RELEASE
         del self.settings.build_type
-    def requirements(self):
-        self.requires("openssl/1.1.1@{}/{}".format(self.user,self.channel))
 
     def imports(self):
         self.copy("*",dst="target",src=".")
