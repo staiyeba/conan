@@ -10,7 +10,7 @@ class S2nConan(ConanFile):
     settings="os","compiler","build_type","arch"
     name = "s2n"
     default_user = "includeos"
-    version = "1.1.1" ##if we remove this line we can specify it from outside this script!! ps ps
+    version = "0.8"
     options = {
         "threads":[True, False]
     }
@@ -39,7 +39,7 @@ class S2nConan(ConanFile):
 
     def source(self):
         repo = tools.Git(folder="s2n")
-        repo.clone("https://github.com/fwsGonzo/s2n.git")
+        repo.clone("https://github.com/fwsGonzo/s2n.git", branch=self.version)
 
     def _configure_cmake(self):
         cmake = CMake(self)
