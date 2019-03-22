@@ -18,7 +18,7 @@ class MuslConan(ConanFile):
 
     @property
     def default_channel(self):
-        return "test"
+        return "stable"
         
     exports_sources=['../../../etc*musl*musl.patch', '../../../etc*musl*endian.patch','../../../api*syscalls.h','../../../etc*musl*syscall.h']
 

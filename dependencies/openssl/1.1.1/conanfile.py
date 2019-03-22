@@ -32,7 +32,7 @@ class OpenSSLConan(ConanFile):
 
     @property
     def default_channel(self):
-        return "test"
+        return "stable"
 
     def requirements(self):
         self.requires("libcxx/[>=5.0]@{}/{}".format(self.user,self.channel))

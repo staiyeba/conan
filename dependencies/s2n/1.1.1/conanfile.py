@@ -23,7 +23,7 @@ class S2nConan(ConanFile):
 
     @property
     def default_channel(self):
-        return "test"
+        return "stable"
 
     def configure(self):
         #TODO fix the FORTIFY_SOURCE ISSUE IN RELEASE

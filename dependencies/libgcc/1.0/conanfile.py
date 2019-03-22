@@ -12,7 +12,7 @@ class LibgccConan(ConanFile):
 
     @property
     def default_channel(self):
-        return "test"
+        return "stable"
 
     def build(self):
         iobuf = StringIO()

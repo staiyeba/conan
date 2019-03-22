@@ -15,7 +15,7 @@ class LibCxxConan(ConanFile):
 
     @property
     def default_channel(self):
-        return "test"
+        return "stable"
 
     options ={
         "shared":[True,False],

@@ -16,7 +16,7 @@ class MuslConan(ConanFile):
 
     @property
     def default_channel(self):
-        return "test"
+        return "stable"
 
     def imports(self):
         self.copy("*",dst=".",src=".")

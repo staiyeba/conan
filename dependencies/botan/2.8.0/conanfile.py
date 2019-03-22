@@ -11,7 +11,7 @@ class BotanConan(ConanFile):
 
     @property
     def default_channel(self):
-        return "test"
+        return "stable"
 
     keep_imports=True
 
