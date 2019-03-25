@@ -4,7 +4,7 @@ import shutil
 from conans import ConanFile,tools,CMake
 
 class LibCxxConan(ConanFile):
-    settings= "compiler","arch","build_type","os","compiler.version"
+    settings= "compiler","arch","build_type","os"
     name = "libcxx"
     default_user = "includeos"
     version = "7.0.1"
