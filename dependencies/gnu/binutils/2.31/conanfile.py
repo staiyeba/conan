@@ -4,7 +4,7 @@ from conans import ConanFile,tools,AutoToolsBuildEnvironment
 class BinutilsConan(ConanFile):
     #we dont care how you compiled it but which os and arch it is meant to run on and which arch its targeting
     #pre conan 2.0 we have to use arch_build as host arch and arch as target arch
-    settings= "arch_build","os_build","arch","compiler"
+    settings= "arch_build","os_build","arch"
     name = "binutils"
     version = "2.31"
     default_user = "includeos"
