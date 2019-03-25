@@ -6,7 +6,7 @@ from conans import ConanFile,tools,AutoToolsBuildEnvironment
 class MuslConan(ConanFile):
     #what makes the generated package unique..
     #compiler .. target .. and build type
-    settings= "compiler","arch","build_type","arch_build"
+    settings= "compiler","arch","build_type","arch_build","compiler.version"
     name = "musl"
     default_user = "includeos"
     version = "1.1.18"

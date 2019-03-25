@@ -2,7 +2,7 @@ import shutil
 from conans import ConanFile,tools,CMake
 
 class LibfdtConan(ConanFile):
-    settings="os","compiler","build_type","arch"
+    settings="os","compiler","build_type","arch","compiler.version"
     name = "libfdt"
     version = "1.4.7"
     license = 'BSD-2/GPL Dual licenced'
@@ -28,7 +28,7 @@ class LibfdtConan(ConanFile):
     def build(self):
         cmake=self._configure_cmake()
         cmake.build()
-        
+
     def package(self):
         cmake=self._configure_cmake()
         cmake.install()

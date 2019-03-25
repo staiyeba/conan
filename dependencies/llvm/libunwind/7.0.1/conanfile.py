@@ -5,7 +5,7 @@ from conans import ConanFile,tools,CMake
 
 class LibUnwindConan(ConanFile):
     #TODO check if the os matters at all here.. a .a from os a is compatible with os b
-    settings= "compiler","arch","build_type","os"
+    settings= "compiler","arch","build_type","os","compiler.version"
     name = "libunwind"
     version = "7.0.1"
     license = 'NCSA','MIT'
