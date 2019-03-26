@@ -37,7 +37,7 @@ class S2nConan(ConanFile):
 
     def source(self):
         repo = tools.Git(folder="s2n")
-        repo.clone("https://github.com/fwsGonzo/s2n.git", branch=self.version)
+        repo.clone("https://github.com/fwsGonzo/s2n.git", branch="0.8")
 
     def _configure_cmake(self):
         cmake = CMake(self)
