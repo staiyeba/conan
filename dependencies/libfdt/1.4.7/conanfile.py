@@ -2,7 +2,7 @@ import shutil
 from conans import ConanFile,tools,CMake
 
 class LibfdtConan(ConanFile):
-    settings="os","compiler","build_type","arch","compiler.version"
+    settings="os","compiler","build_type","arch"
     name = "libfdt"
     version = "1.4.7"
     license = 'BSD-2/GPL Dual licenced'
