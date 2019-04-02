@@ -4,18 +4,28 @@ language: cpp
 compiler:
     - clang
 
+before_install:
+  - brew install grep
+  - |
+    if ! git diff --name-only $TRAVIS_COMMIT_RANGE | ggrep 'binutils'
+    then
+      echo "SKIP conan build for other packages"
+      travis_terminate 0
+    fi
+
 install:
   - .ci/install.sh
 
 script:
   - conan config install https://github.com/includeos/conan_config.git
-  - conan create binutils/2.31 binutils/2.31@includeos/maclatest -pr apple-clang-10-macos-toolchain
-  - conan search binutils/2.31@includeos/maclatest
+  - conan create dependencies/gnu/binutils/2.31 binutils/2.31@includeos/latest -pr apple-clang-10-macos-toolchain
+  - conan search binutils/2.31@includeos/latest
   - |
-    if [ "$TRAVIS_BRANCH" == "master" ]; then
-      conan upload --all binutils/2.31@includeos/maclatest -r includeos-test
+    if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]];
+    then
+      conan upload --all binutils/2.31@includeos/latest -r includeos
     fi
     if [ -n "$TRAVIS_TAG" ]; then
-      conan copy --all binutils/2.31@includeos/maclatest includeos/macstable
-      conan upload --all binutils/2.31@includeos/macstable -r includeos-test
+      conan copy --all binutils/2.31@includeos/latest includeos/stable
+      conan upload --all binutils/2.31@includeos/stable -r includeos
     fi
