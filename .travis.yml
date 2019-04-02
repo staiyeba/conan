@@ -1,0 +1,21 @@
+os: osx
+language: cpp
+
+compiler:
+    - clang
+
+install:
+  - .ci/install.sh
+
+script:
+  - conan config install https://github.com/includeos/conan_config.git
+  - conan create binutils/2.31 binutils/2.31@includeos/maclatest -pr apple-clang-10-macos-toolchain
+  - conan search binutils/2.31@includeos/maclatest
+  - |
+    if [ "$TRAVIS_BRANCH" == "master" ]; then
+      conan upload --all binutils/2.31@includeos/maclatest -r includeos-test
+    fi
+    if [ -n "$TRAVIS_TAG" ]; then
+      conan copy --all binutils/2.31@includeos/maclatest includeos/macstable
+      conan upload --all binutils/2.31@includeos/macstable -r includeos-test
+    fi
