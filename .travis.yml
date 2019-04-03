@@ -7,7 +7,7 @@ compiler:
 before_install:
   - brew install grep
   - |
-    if ! git diff --name-only $TRAVIS_COMMIT_RANGE | ggrep 'binutils'
+    if ! git diff --name-only $TRAVIS_COMMIT_RANGE | ggrep '.travis.yml'
     then
       echo "SKIP conan build for other packages"
       travis_terminate 0
