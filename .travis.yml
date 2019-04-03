@@ -19,16 +19,11 @@ install:
 
 script:
   - conan config install https://github.com/includeos/conan_config.git
-#  - conan create dependencies/gnu/binutils/2.31 binutils/2.31@includeos/latest -pr apple-clang-10-macos-toolchain
-#  - conan search binutils/2.31@includeos/latest
   - |
     if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]];
     then
       conan
-#      conan search binutils/2.31@includeos/latest
     fi
     if [ -n "$TRAVIS_TAG" ]; then
       conan search -r includeos
-#      conan copy --all binutils/2.31@includeos/latest includeos/stable
-#      conan search binutils/2.31@includeos/stable
     fi
