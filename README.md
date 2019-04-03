@@ -1,6 +1,7 @@
 # Conan dependency building
-Contains all configuration files for building IncludeOS dependencies.
+Contains all configuration files for building [IncludeOS](https://github.com/includeos/IncludeOS) dependencies.
 The build jobs in this repository are for 3rd party external dependencies in use by IncludeOS.
+They are uploaded as `stable` packages to [includeos repository](https://bintray.com/includeos/includeos) on bintray.
 
 
 ## Creating/adding new build jobs
@@ -47,13 +48,9 @@ The jobs require a number of parameters;
 - **Target_architectures*:** *currently available for: __x86_64__ or __x86__ __(can be left empty)__*
 - **Build_types:** *Two available build types specified; __Debug__ and __Release__*
 
-The **Build** step is capable of building a number of packages parallely depending on the instance handling the builds.
+The **Build** step is capable of building a number of packages in parallel depending on the instance handling the builds.
 
-The **Upload** step uploads the packages, if the build step for all the packages specified is successful. The packages are uploaded to [includeos bintray](https://bintray.com/includeos)
-
-
-
-> **Note:** For parameters marked with a [**\***], these settings are included in the Profiles, entering them here overwrites the profiles default values. Please have a look at the settings in the profile for build compatibility before attempting to change settings.
+The **Upload** step uploads the packages if the build step for all the packages specified is successful. The packages are uploaded to the [includeos repository](https://bintray.com/includeos/includeos) on bintray.
 
 
-**Upcoming step:** *To Automate a test build workflow by triggering a dependency build for a PR made to that dependency repo*
+> **Note:** For parameters marked with a [**\***], these settings are included in the Profiles, entering them via Jenkins job overwrites the profiles default values. Please have a look at the settings in the profile for build compatibility before attempting to change settings.
