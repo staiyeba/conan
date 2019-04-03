@@ -7,9 +7,10 @@ compiler:
 before_install:
   - brew install grep
   - |
-    if ! git diff --name-only $TRAVIS_COMMIT_RANGE | ggrep '.travis.yml'
+    if ! git diff --name-only $TRAVIS_COMMIT_RANGE | ggrep 'http-parser'
     then
       echo "SKIP conan build for other packages"
+      set +e
       travis_terminate 0
     fi
 
@@ -17,15 +18,17 @@ install:
   - .ci/install.sh
 
 script:
-  - conan config install https://github.com/includeos/conan_config.git
-  - conan create dependencies/gnu/binutils/2.31 binutils/2.31@includeos/latest -pr apple-clang-10-macos-toolchain
-  - conan search binutils/2.31@includeos/latest
+#- conan config install https://github.com/includeos/conan_config.git
+#  - conan create dependencies/gnu/binutils/2.31 binutils/2.31@includeos/latest -pr apple-clang-10-macos-toolchain
+#  - conan search binutils/2.31@includeos/latest
   - |
     if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]];
     then
-      conan search binutils/2.31@includeos/latest
+      conan
+#      conan search binutils/2.31@includeos/latest
     fi
     if [ -n "$TRAVIS_TAG" ]; then
-      conan copy --all binutils/2.31@includeos/latest includeos/stable
-      conan search binutils/2.31@includeos/stable
+      conan search -r includeos
+#      conan copy --all binutils/2.31@includeos/latest includeos/stable
+#      conan search binutils/2.31@includeos/stable
     fi
